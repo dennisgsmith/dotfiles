@@ -35,6 +35,19 @@ return {
   font = wezterm.font_with_fallback({"JetBrains Mono", "termicons"}), -- [JetBrains Mono]
   font_size = 13.0, -- [12.0]
 
+  keys = {
+    {
+      key = 'd',
+      mods = 'SUPER | SHIFT',
+      action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' },
+    },
+    {
+      key = 'd',
+      mods = 'SUPER',
+      action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
+    },
+  },
+
   -- Colors
   color_scheme  = color_scheme,
   default_cursor_style = 'BlinkingBlock',
@@ -113,10 +126,11 @@ return {
   },
 
   -- Appearance
-  window_decorations = "RESIZE|MACOS_FORCE_ENABLE_SHADOW",
+  window_decorations = "TITLE | RESIZE | MACOS_FORCE_ENABLE_SHADOW",
   window_frame = {
     active_titlebar_bg = border_color,
   },
+  enable_tab_bar = false,
 
   window_background_opacity   	= 0.85,  -- [1.0] alpha channel value with floating point numbers
   macos_window_background_blur  = 100,   -- blur
