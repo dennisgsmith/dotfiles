@@ -137,8 +137,8 @@ require('lazy').setup({
     config = function()
       require('github-theme').setup({
         options = {
-          transparent = true
-        }
+          transparent = true,
+        },
       })
     end,
   },
@@ -148,22 +148,34 @@ require('lazy').setup({
     opts = {
       update_interval = 1000,
       set_dark_mode = function()
-        -- vim.api.nvim_set_option("background", "dark")
+        vim.api.nvim_set_option("background", "dark")
         vim.cmd("colorscheme github_dark")
+        require("lualine").setup({
+          extensions = { 'nvim-tree', 'lazy', 'fugitive' },
+        })
       end,
       set_light_mode = function()
-        -- vim.api.nvim_set_option("background", "light")
+        vim.api.nvim_set_option("background", "light")
         vim.cmd("colorscheme github_light")
+        require("lualine").setup({
+          extensions = { 'nvim-tree', 'lazy', 'fugitive' },
+        })
+
       end,
     }
   },
-  
+
   {
     "nvim-tree/nvim-web-devicons",
     dependencies = { "mskelton/termicons.nvim" },
     config = function()
       require("termicons").setup()
     end,
+  },
+
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' }
   },
 
   {
@@ -211,6 +223,11 @@ require('lazy').setup({
       vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { silent = true })
     end,
   },
+  {
+    'akinsho/bufferline.nvim',
+    version = "*",
+    dependencies = 'nvim-tree/nvim-web-devicons'
+  },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -233,6 +250,21 @@ require'nvim-tree'.setup({
     git_ignored = false,
   }
 })
+
+vim.opt.termguicolors = true
+require("bufferline").setup({
+  options = {
+    offsets = {
+        {
+            filetype = "NvimTree",
+            text = "File Explorer",
+            text_align = "left",
+            separator = true,
+        }
+    },
+  }
+})
+    
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
