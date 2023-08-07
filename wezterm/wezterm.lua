@@ -33,7 +33,7 @@ local cursor_bg = scheme_for_appearance(a, LIGHT_CURSOR, DARK_CURSOR)
 return {
   -- Fonts
   font     	= wezterm.font_with_fallback({"JetBrains Mono", "termicons"}), -- [JetBrains Mono]
-  font_size	= 12.0, -- [12.0]
+  font_size	= 13.0, -- [12.0]
 
   -- Colors
   color_scheme  = color_scheme,
