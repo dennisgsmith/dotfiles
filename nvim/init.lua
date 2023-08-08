@@ -185,7 +185,8 @@ local config = {
     config = function()
       vim.opt.termguicolors = true
     end,
-    opts = {},
+    opts = {
+    },
   },
   require 'core.plugins.autoformat',
   require 'core.plugins.debug',
@@ -193,6 +194,18 @@ local config = {
 local opts = {}
 require('lazy').setup(config, opts)
 require('nvim-tree').setup({})
+require('bufferline').setup({
+  options = {
+    offsets = {
+      {
+        filetype = "NvimTree",
+        text = "File Explorer",
+        text_align = "left",
+        separator = true
+      }
+    },
+  }
+})
 
 local map = vim.api.nvim_set_keymap
 local kopts = { noremap = true, silent = true }
