@@ -33,6 +33,7 @@ local config = {
   'tpope/vim-sleuth',
   'mbbill/undotree',
   'fatih/vim-go',
+  'jamestthompson3/nvim-remote-containers',
   'kburdett/vim-nuuid',
   {
     'projekt0n/github-nvim-theme',
