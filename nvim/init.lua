@@ -32,6 +32,8 @@ local config = {
   'tpope/vim-rhubarb',
   'tpope/vim-sleuth',
   'mbbill/undotree',
+  'fatih/vim-go',
+  'kburdett/vim-nuuid',
   {
     'projekt0n/github-nvim-theme',
     lazy = false,    -- make sure we load this during startup if it is your main colorscheme
