@@ -1,3 +1,10 @@
+--[[
+
+Dennis's Neovim init file
+https://github.com/dennisgsmith/dotfiles
+
+--]]
+
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -15,17 +22,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 vim.opt.relativenumber = true
-
-local scrollbar_config = {
-  handlers = {
-    cursor = true,
-    diagnostic = true,
-    gitsigns = true, -- Requires gitsigns
-    handle = true,
-    search = true,   -- Requires hlslens
-    ale = false,     -- Requires ALE
-  },
-}
 
 local config = {
   'tpope/vim-fugitive',
@@ -100,23 +96,21 @@ local config = {
   },
   {
     "f-person/auto-dark-mode.nvim",
+    lazy = false,
+    priority = 999,
     opts = {
       update_interval = 1000,
       set_dark_mode = function()
         vim.api.nvim_set_option("background", "dark")
         vim.cmd("colorscheme github_dark")
-        require("lualine").setup({
-          extensions = { 'nvim-tree', 'lazy', 'fugitive' },
-        })
-        require("scrollbar").setup(scrollbar_config)
+        require('lualine').setup({})
+        require('scrollbar').setup({})
       end,
       set_light_mode = function()
         vim.api.nvim_set_option("background", "light")
         vim.cmd("colorscheme github_light")
-        require("lualine").setup({
-          extensions = { 'nvim-tree', 'lazy', 'fugitive' },
-        })
-        require("scrollbar").setup(scrollbar_config)
+        require('lualine').setup({})
+        require('scrollbar').setup({})
       end,
     }
   },
@@ -125,9 +119,23 @@ local config = {
     dependencies = { "mskelton/termicons.nvim" },
     config = function()
       require("termicons").setup()
-    end
+    end,
+    opts = {
+      filters = {
+        git_ignored = false,
+      }
+    },
   },
-  { 'nvim-lualine/lualine.nvim', dependencies = { 'nvim-tree/nvim-web-devicons' } },
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    opts = {
+      extensions = { 'nvim-tree', 'lazy', 'fugitive' }
+    },
+    event = "VimEnter",
+    lazy = false,
+    priority = 800,
+  },
   { 'lukas-reineke/indent-blankline.nvim', opts = { char = '┊', show_trailing_blankline_indent = false } },
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
   {
@@ -137,9 +145,26 @@ local config = {
       return vim.fn.executable 'make' == 1
     end,
   },
-  { 'folke/which-key.nvim',      opts = {} },
-  { 'numToStr/Comment.nvim',     opts = {} },
-  { 'petertriho/nvim-scrollbar', opts = {}, dependencies = { 'f-person/auto-dark-mode.nvim' } },
+  { 'folke/which-key.nvim',  opts = {} },
+  { 'numToStr/Comment.nvim', opts = {} },
+  {
+    'petertriho/nvim-scrollbar',
+    dependencies = { 'f-person/auto-dark-mode.nvim' },
+    opts = {
+      marks = {
+        GitAdd = {
+          text = "|",
+        },
+        GitChange = {
+          text = "|",
+        },
+      },
+      handlers = {
+        gitsigns = true, -- Requires gitsigns
+        search = true,   -- Requires hlslens
+      },
+    },
+  },
   {
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
@@ -149,53 +174,39 @@ local config = {
   },
   {
     "nvim-tree/nvim-tree.lua",
-    config = function()
-      vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { silent = true })
-    end,
+    keys = {
+      { "<leader>e", ":NvimTreeToggle<CR>" },
+    },
   },
-  { 'akinsho/bufferline.nvim', version = "*", dependencies = { 'nvim-tree/nvim-web-devicons' } },
+  {
+    'akinsho/bufferline.nvim',
+    version = "*",
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    config = function()
+      vim.opt.termguicolors = true
+    end,
+    opts = {},
+  },
   require 'core.plugins.autoformat',
   require 'core.plugins.debug',
 }
 local opts = {}
 require('lazy').setup(config, opts)
+require('nvim-tree').setup({})
 
-local nvim_tree_config = {
-  filters = {
-    git_ignored = false,
-  }
-}
-require('nvim-tree').setup(nvim_tree_config)
-
-vim.opt.termguicolors = true
-local bufferline_config = {
-  options = {
-    offsets = {
-      {
-        filetype = "NvimTree",
-        text = "File Explorer",
-        text_align = "left",
-        separator = true,
-      }
-    },
-  }
-}
-require("bufferline").setup(bufferline_config)
-
-require('hlslens').setup()
+local map = vim.api.nvim_set_keymap
 local kopts = { noremap = true, silent = true }
-vim.api.nvim_set_keymap('n', 'n',
+map('n', 'n',
   [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]],
   kopts)
-vim.api.nvim_set_keymap('n', 'N',
+map('n', 'N',
   [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
   kopts)
-vim.api.nvim_set_keymap('n', '*', [[*<Cmd>lua require('hlslens').start()<CR>]], kopts)
-vim.api.nvim_set_keymap('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], kopts)
-vim.api.nvim_set_keymap('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]], kopts)
-vim.api.nvim_set_keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], kopts)
-vim.api.nvim_set_keymap('n', '<Leader>l', '<Cmd>noh<CR>', kopts)
-
+map('n', '*', [[*<Cmd>lua require('hlslens').start()<CR>]], kopts)
+map('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], kopts)
+map('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]], kopts)
+map('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], kopts)
+map('n', '<Leader>l', '<Cmd>noh<CR>', kopts)
 
 vim.keymap.set('n', '<leader><F5>', vim.cmd.UndotreeToggle)
 
