@@ -139,12 +139,20 @@ local config = {
   {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    opts = {
-      extensions = { 'lazy', 'fugitive' },
-      tabline = {
-        lualine_a = { 'buffers' },
-      }
-    },
+    opts = {},
+    config = function()
+      require('lualine').setup({
+        extensions = { 'lazy', 'fugitive' },
+        tabline = {
+          lualine_a = { 'buffers' },
+        }
+      })
+      for i = 1, 6 do
+        local lhs = "<leader>" .. i
+        local rhs = ":LualineBuffersJump " .. i .. " <CR>"
+        vim.keymap.set("n", lhs, rhs, { desc = "Move to buffer " .. i })
+      end
+    end,
     event = "VimEnter",
     lazy = false,
     priority = 800,
@@ -311,7 +319,8 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-vim.keymap.set('n', '<leader>vh', ':vertical bo help ', { silent = true })
+vim.api.nvim_create_user_command('H', function(table) vim.cmd('tab help ' .. table.args) end,
+  { desc = 'Open [H]elp in new tab', nargs = 1 })
 
 --- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
