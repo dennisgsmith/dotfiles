@@ -39,6 +39,16 @@ local config = {
       require('github-theme').setup({
         options = {
           transparent = true,
+          modules = {
+            gitsigns = true,
+          },
+          specs = {
+            all = {
+              git = {
+                changed = '#fff761',
+              },
+            },
+          },
         },
       })
     end,
@@ -85,7 +95,7 @@ local config = {
       end,
     },
     config = function()
-      require('gitsigns').setup()
+      require('gitsigns').setup({})
       require("scrollbar.handlers.gitsigns").setup()
     end,
     dependencies = { 'petertriho/nvim-scrollbar', 'f-person/auto-dark-mode.nvim' },
@@ -102,13 +112,13 @@ local config = {
       update_interval = 1000,
       set_dark_mode = function()
         vim.api.nvim_set_option("background", "dark")
-        vim.cmd("colorscheme github_dark")
+        vim.cmd("colorscheme github_dark_high_contrast")
         require('lualine').setup({})
         require('scrollbar').setup({})
       end,
       set_light_mode = function()
         vim.api.nvim_set_option("background", "light")
-        vim.cmd("colorscheme github_light")
+        vim.cmd("colorscheme github_light_high_contrast")
         require('lualine').setup({})
         require('scrollbar').setup({})
       end,
@@ -147,6 +157,12 @@ local config = {
     cond = function()
       return vim.fn.executable 'make' == 1
     end,
+  },
+  {
+    'rmagatti/auto-session',
+    config = function()
+      require("auto-session").setup({})
+    end
   },
   { 'folke/which-key.nvim',  opts = {} },
   { 'numToStr/Comment.nvim', opts = {} },
@@ -190,6 +206,11 @@ local config = {
     end,
     keys = {
       { "<leader>cb", ":sil bdelete! %" }
+    },
+    {
+      "folke/trouble.nvim",
+      dependencies = { "nvim-tree/nvim-web-devicons" },
+      opts = {},
     }
   },
   require 'core.plugins.autoformat',
@@ -198,6 +219,12 @@ local config = {
 local opts = {}
 require('lazy').setup(config, opts)
 require('nvim-tree').setup({})
+
+-- Set mapping for searching a session.
+-- ⚠️ This will only work if Telescope.nvim is installed
+vim.keymap.set("n", "<C-s>", require("auto-session.session-lens").search_session, {
+  noremap = true,
+})
 
 -- keeps track of buffers that have been "touched" (entered insert mode or modified the buffer)
 local id = vim.api.nvim_create_augroup("startup", {
@@ -223,7 +250,7 @@ vim.api.nvim_create_autocmd({ "BufRead" }, {
   end
 })
 
-vim.keymap.set('n', '<Leader>bcu',
+vim.keymap.set('n', '<Leader>kw',
   function()
     local curbufnr = vim.api.nvim_get_current_buf()
     local buflist = vim.api.nvim_list_bufs()
@@ -232,7 +259,7 @@ vim.keymap.set('n', '<Leader>bcu',
         vim.cmd('bd ' .. tostring(bufnr))
       end
     end
-  end, { silent = true, desc = '[B]uffers [c]lose [u]nused' })
+  end, { silent = true, desc = 'I dunno [KW] is what I was used to' })
 
 -- set hlslens keymaps
 local map = vim.api.nvim_set_keymap
@@ -324,6 +351,9 @@ vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+vim.keymap.set('n', '<leader>k', require('telescope.builtin').keymaps, { desc = '[K]eymaps' })
+vim.keymap.set('n', '<leader>sp', require('telescope.builtin').live_grep, { desc = '[S]earch [P]roject' })
+
 
 -- [[ Configure Treesitter ]]
 local treesitter_config = {
@@ -387,11 +417,20 @@ local treesitter_config = {
 }
 require('nvim-treesitter.configs').setup(treesitter_config)
 
+-- Turn off inline diagnostic text
+vim.diagnostic.config({ virtual_text = false })
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<leader>od', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+-- vim.keymap.set('n', '<leader>od', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+-- Show line diagnostics automatically in hover window
+vim.o.updatetime = 250
+vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
+vim.diagnostic.config {
+  float = { border = "rounded" },
+}
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.

@@ -4,5 +4,14 @@ curl -sL https://mskelton.github.io/termicons/termicons.ttf -o ~/Library/Fonts/t
 
 brew install \
 	wezterm \
-	nvim;
+	nvim
+
+tempfile=$(mktemp) \
+  && curl -o $tempfile https://raw.githubusercontent.com/wez/wezterm/master/termwiz/data/wezterm.terminfo \
+  && tic -x -o ~/.terminfo $tempfile \
+  && rm $tempfile
+
+echo 'export TERM=wezterm' >> $HOME/.zshrc
+
+exec $SHELL
 

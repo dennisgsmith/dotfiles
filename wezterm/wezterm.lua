@@ -132,7 +132,6 @@ return {
 	},
 	enable_tab_bar               = false,
 
-	window_background_opacity    = 0.85, -- [1.0] alpha channel value with floating point numbers
 	macos_window_background_blur = 100, -- blur
 	hide_tab_bar_if_only_one_tab = false, -- [false] hide the tab bar when there is only a single tab in the window
 }
