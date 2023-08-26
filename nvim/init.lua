@@ -140,7 +140,7 @@ local config = {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {
-      extensions = { 'nvim-tree', 'lazy', 'fugitive' },
+      extensions = { 'lazy', 'fugitive' },
       tabline = {
         lualine_a = { 'buffers' },
       }
@@ -192,12 +192,6 @@ local config = {
     build = ':TSUpdate',
   },
   {
-    "nvim-tree/nvim-tree.lua",
-    keys = {
-      { "<leader>e", ":NvimTreeToggle<CR>" },
-    },
-  },
-  {
     'akinsho/bufferline.nvim',
     version = "*",
     dependencies = 'nvim-tree/nvim-web-devicons',
@@ -213,12 +207,17 @@ local config = {
       opts = {},
     }
   },
+  {
+    'stevearc/oil.nvim',
+    opts = {},
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
   require 'core.plugins.autoformat',
   require 'core.plugins.debug',
 }
 local opts = {}
 require('lazy').setup(config, opts)
-require('nvim-tree').setup({})
+require("oil").setup()
 
 -- Set mapping for searching a session.
 -- ⚠️ This will only work if Telescope.nvim is installed
