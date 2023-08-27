@@ -112,15 +112,15 @@ local config = {
       update_interval = 1000,
       set_dark_mode = function()
         vim.api.nvim_set_option("background", "dark")
-        vim.cmd("colorscheme github_dark_high_contrast")
-        require('lualine').setup({})
-        require('scrollbar').setup({})
+        vim.cmd("colorscheme github_dark")
+        require('lualine').refresh()
+        require('scrollbar').render()
       end,
       set_light_mode = function()
         vim.api.nvim_set_option("background", "light")
-        vim.cmd("colorscheme github_light_high_contrast")
-        require('lualine').setup({})
-        require('scrollbar').setup({})
+        vim.cmd("colorscheme github_light")
+        require('lualine').refresh()
+        require('scrollbar').render()
       end,
     }
   },
@@ -144,8 +144,13 @@ local config = {
       require('lualine').setup({
         extensions = { 'lazy', 'fugitive' },
         tabline = {
-          lualine_a = { 'buffers' },
-        }
+          lualine_a = {
+            'buffers',
+          },
+          lualine_z = {
+            require('auto-session.lib').current_session_name
+          },
+        },
       })
       for i = 1, 6 do
         local lhs = "<leader>" .. i
@@ -155,7 +160,7 @@ local config = {
     end,
     event = "VimEnter",
     lazy = false,
-    priority = 800,
+    priority = 1001,
   },
   { 'lukas-reineke/indent-blankline.nvim', opts = { char = '┊', show_trailing_blankline_indent = false } },
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
@@ -169,7 +174,14 @@ local config = {
   {
     'rmagatti/auto-session',
     config = function()
-      require("auto-session").setup({})
+      require("auto-session").setup({
+        log_level = "error",
+        cwd_change_handling = {
+          post_cwd_changed_hook = function() -- example refreshing the lualine status line _after_ the cwd changes
+            require("lualine").refresh()     -- refresh lualine so the new session name is displayed in the status bar
+          end,
+        },
+      })
     end
   },
   { 'folke/which-key.nvim',  opts = {} },
@@ -191,6 +203,8 @@ local config = {
         search = true,   -- Requires hlslens
       },
     },
+    lazy = false,
+    priority = 1002,
   },
   {
     'nvim-treesitter/nvim-treesitter',
@@ -333,7 +347,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
-require('telescope').setup({})
+require('telescope').setup({
+  defaults = {
+    layout_stategy = 'vertical',
+    layout_config = { width = 0.95 },
+  },
+})
 pcall(require('telescope').load_extension, 'fzf')
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
