@@ -402,7 +402,7 @@ require('telescope').setup({
           ["y"] = fb_actions.copy,
           ["d"] = fb_actions.remove,
           ["o"] = fb_actions.open,
-          ["g"] = fb_actions.goto_parent_dir,
+          ["-"] = fb_actions.goto_parent_dir,
           ["e"] = fb_actions.goto_home_dir,
           ["w"] = fb_actions.goto_cwd,
           ["t"] = fb_actions.change_cwd,
