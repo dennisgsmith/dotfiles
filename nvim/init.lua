@@ -143,20 +143,7 @@ local config = {
     config = function()
       require('lualine').setup({
         extensions = { 'lazy', 'fugitive' },
-        tabline = {
-          lualine_a = {
-            'buffers',
-          },
-          lualine_z = {
-            require('auto-session.lib').current_session_name
-          },
-        },
       })
-      for i = 1, 6 do
-        local lhs = "<leader>" .. i
-        local rhs = ":LualineBuffersJump " .. i .. " <CR>"
-        vim.keymap.set("n", lhs, rhs, { desc = "Move to buffer " .. i })
-      end
     end,
     event = "VimEnter",
     lazy = false,
@@ -331,7 +318,7 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-vim.api.nvim_create_user_command('H', function(table) vim.cmd('tab help ' .. table.args) end,
+vim.api.nvim_create_user_command('H', function(table) vim.cmd('help ' .. table.args .. ' | only') end,
   { desc = 'Open [H]elp in new tab', nargs = 1 })
 
 --- [[ Highlight on yank ]]
@@ -356,14 +343,14 @@ require('telescope').setup({
       initial_mode = "normal",
       -- path
       -- cwd
-      cwd_to_path = true,
+      cwd_to_path = false,
       grouped = true,
       files = true,
       add_dirs = true,
       depth = 1,
       auto_depth = false,
       select_buffer = false,
-      hidden = { file_browser = false, folder_browser = false },
+      hidden = { file_browser = true, folder_browser = true },
       -- respect_gitignore
       -- browse_files
       -- browse_folders
