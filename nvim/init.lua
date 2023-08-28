@@ -337,10 +337,22 @@ require('telescope').setup({
   defaults = {
     layout_stategy = 'vertical',
     layout_config = { width = 0.95 },
+    sorting_strategy = "ascending",
+    vimgrep_arguments = {
+      'rg',
+      '--color=never',
+      '--no-heading',
+      '--with-filename',
+      '--line-number',
+      '--column',
+      '--smart-case',
+      '-u'
+    },
   },
   extensions = {
     file_browser = {
       initial_mode = "normal",
+      no_ignore = true,
       -- path
       -- cwd
       cwd_to_path = false,
@@ -363,6 +375,7 @@ require('telescope').setup({
       display_stat = { date = true, size = true, mode = true },
       hijack_netrw = true,
       use_fd = true,
+      respect_gitignore = false,
       git_status = true,
       mappings = {
         ["i"] = {
