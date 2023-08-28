@@ -338,16 +338,6 @@ require('telescope').setup({
     layout_stategy = 'vertical',
     layout_config = { width = 0.95 },
     sorting_strategy = "ascending",
-    vimgrep_arguments = {
-      'rg',
-      '--color=never',
-      '--no-heading',
-      '--with-filename',
-      '--line-number',
-      '--column',
-      '--smart-case',
-      '-u'
-    },
   },
   extensions = {
     file_browser = {
