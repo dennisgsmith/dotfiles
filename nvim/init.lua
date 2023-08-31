@@ -429,7 +429,10 @@ vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>k', require('telescope.builtin').keymaps, { desc = '[K]eymaps' })
 vim.keymap.set('n', '<leader>sp', require('telescope.builtin').live_grep, { desc = '[S]earch [P]roject' })
-
+vim.keymap.set('n', '<leader>gs', require('telescope.builtin').git_status, { desc = '[G]it [S]tatus' })
+vim.keymap.set('n', '<leader>gt', require('telescope.builtin').git_stash, { desc = '[G]it S[t]ash' })
+vim.keymap.set('n', '<leader>gb', require('telescope.builtin').git_branches, { desc = '[G]it [B]ranches' })
+vim.keymap.set('n', '<leader>gc', require('telescope.builtin').git_commits, { desc = '[G]it [C]ommits' })
 
 -- [[ Configure Treesitter ]]
 local treesitter_config = {
@@ -492,6 +495,9 @@ local treesitter_config = {
   },
 }
 require('nvim-treesitter.configs').setup(treesitter_config)
+
+vim.cmd.set('splitbelow')
+vim.cmd.set('splitright')
 
 -- Turn off inline diagnostic text
 vim.diagnostic.config({ virtual_text = false })
