@@ -7,9 +7,6 @@ eval "$(direnv hook zsh)"
 # Make pipx software globally available
 export PATH="$PATH:$HOME/.local/bin"
 
-# zsh-syntax-highlighting
-source /Users/dennissmith/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 # git autocomplete
 autoload -Uz compinit && compinit
 
@@ -24,3 +21,9 @@ export PATH="/usr/local/opt/libpq/bin:$PATH"
 
 # wezterm
 export TERM=wezterm
+
+export PATH="/opt/homebrew/bin:$PATH"
+
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
