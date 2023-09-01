@@ -18,7 +18,8 @@ brew install \
         docker \
 	docker-compose \
 	docker-credential-helper \
-	awscli
+	awscli \
+	pandoc
 
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.12.0
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
