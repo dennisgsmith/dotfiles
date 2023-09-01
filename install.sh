@@ -13,7 +13,12 @@ brew install \
 	jq \
 	pnpm \
 	pipx \
-	gdal
+	gdal \
+	colima \
+        docker \
+	docker-compose \
+	docker-credential-helper \
+	awscli
 
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.12.0
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
@@ -35,4 +40,7 @@ asdf install python 3.11.5
 asdf global python system
 
 pipx ensurepath
+
+mkdir -p ~/.docker/cli-plugins
+ln -sfn /opt/homebrew/opt/docker-compose/bin/docker-compose ~/.docker/cli-plugins/docker-compose
 
