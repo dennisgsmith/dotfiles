@@ -1,8 +1,7 @@
 export EDITOR=nvim
 export PS1="%~ $ "
 
-# direnv
-eval "$(direnv hook zsh)"
+export PATH="/opt/homebrew/bin:$PATH"
 
 # Make pipx software globally available
 export PATH="$PATH:$HOME/.local/bin"
@@ -19,10 +18,12 @@ alias history="history 1"
 . "$HOME/.asdf/asdf.sh"
 export PATH="/usr/local/opt/libpq/bin:$PATH"
 
+
+# direnv
+eval "$(direnv hook zsh)"
+
 # wezterm
 export TERM=wezterm
-
-export PATH="/opt/homebrew/bin:$PATH"
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
