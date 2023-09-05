@@ -19,8 +19,6 @@ alias history="history 1"
 
 # asdf
 . "$HOME/.asdf/asdf.sh"
-export PATH="/usr/local/opt/libpq/bin:$PATH"
-
 
 # direnv
 eval "$(direnv hook zsh)"
