@@ -22,7 +22,8 @@ brew install \
 	docker-credential-helper \
 	awscli \
 	pandoc \
-	ripgrep
+	ripgrep \
+	libpq
 
 brew install --cask aws-vault
 
