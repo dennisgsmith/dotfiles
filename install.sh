@@ -26,6 +26,7 @@ brew install \
 	libpq
 
 brew install --cask aws-vault
+brew link --force libpq
 
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.12.0
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions

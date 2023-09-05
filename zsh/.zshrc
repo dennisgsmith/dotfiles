@@ -4,6 +4,7 @@ export EDITOR=nvim
 export PS1="%~ $ "
 
 export PATH="/opt/homebrew/bin:$PATH"
+export PATH="/opt/homebrew/sbin:$PATH"
 
 # Make pipx software globally available
 export PATH="$PATH:$HOME/.local/bin"
