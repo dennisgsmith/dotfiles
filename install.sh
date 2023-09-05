@@ -2,6 +2,8 @@
 
 curl -sL https://mskelton.github.io/termicons/termicons.ttf -o ~/Library/Fonts/termicons.ttf
 
+brew analytics off
+
 brew install \
 	wezterm \
 	nvim \
@@ -20,6 +22,8 @@ brew install \
 	docker-credential-helper \
 	awscli \
 	pandoc
+
+brew install --cask aws-vault
 
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.12.0
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions

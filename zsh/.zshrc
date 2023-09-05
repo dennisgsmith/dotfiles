@@ -1,3 +1,5 @@
+export HOMEBREW_NO_ANALYTICS=1
+
 export EDITOR=nvim
 export PS1="%~ $ "
 
