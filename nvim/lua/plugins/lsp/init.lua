@@ -6,6 +6,7 @@ local M = {
       "hrsh7th/cmp-nvim-lsp",
       "williamboman/mason-lspconfig.nvim",
     },
+    opts = {},
     config = function(_, _)
       local utils = require("utils")
       local mason_lspconfig = require("mason-lspconfig")

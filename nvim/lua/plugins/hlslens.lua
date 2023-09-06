@@ -3,57 +3,52 @@ local M = {
   keys = {
     {
       'n',
-      "<cmd>lua require('hlslens').start()<cr>",
-      desc = "",
+      [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]],
       silent = true,
       remap = false,
     },
     {
       'N',
-      "<cmd>lua require('hlslens').start()<cr>",
-      desc = "",
+      [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
       silent = true,
       remap = false,
     },
     {
       '*',
-      "<cmd>lua require('hlslens').start()<cr>",
-      desc = "",
+      [[*<Cmd>lua require('hlslens').start()<CR>]],
       silent = true,
       remap = false,
+
     },
     {
       '#',
-      "<cmd>lua require('hlslens').start()<CR>",
-      desc = "",
+      [[#<Cmd>lua require('hlslens').start()<CR>]],
       silent = true,
       remap = false,
+
     },
     {
       'g*',
-      "<cmd>lua require('hlslens').start()<cr>",
-      desc = "",
+      [[g*<Cmd>lua require('hlslens').start()<CR>]],
       silent = true,
       remap = false,
+
     },
     {
       'g#',
-      "<cmd>lua require('hlslens').start()<cr>",
-      desc = "",
+      [[g#<Cmd>lua require('hlslens').start()<CR>]],
       silent = true,
       remap = false,
+
     },
     {
-      '<Leader>l',
+      '<leader>l',
       '<cmd>noh<cr>',
-      desc = "",
       silent = true,
       remap = false,
     },
   },
-  config = function()
-    require("scrollbar.handlers.search").setup()
-  end,
+  config = function() require("scrollbar.handlers.search").setup() end,
 }
 
 return M
