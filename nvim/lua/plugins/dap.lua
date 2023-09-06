@@ -1,12 +1,4 @@
--- debug.lua
---
--- Shows how to use the DAP plugin to debug your code.
---
--- Primarily focused on configuring the debugger for Go, but can
--- be extended to other languages as well. That's why it's called
--- kickstart.nvim and not kitchen-sink.nvim ;)
-
-return {
+local M = {
   -- NOTE: Yes, you can install new plugins here!
   'mfussenegger/nvim-dap',
   -- NOTE: And you can specify dependencies as well
@@ -21,6 +13,7 @@ return {
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
   },
+  opts = {},
   config = function()
     local dap = require 'dap'
     local dapui = require 'dapui'
@@ -85,3 +78,6 @@ return {
     require('dap-go').setup()
   end,
 }
+
+return M
+

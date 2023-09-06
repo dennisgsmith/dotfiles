@@ -1,15 +1,15 @@
--- autoformat.lua
---
--- Use your language server to automatically format your code on save.
--- Adds additional commands as well to manage the behavior
-
-return {
+local M = {
   'neovim/nvim-lspconfig',
+  dependencies = {
+    { 'williamboman/mason.nvim', config = true },
+    'williamboman/mason-lspconfig.nvim',
+    { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
+    'folke/neodev.nvim',
+  },
   config = function()
     -- Switch for controlling whether you want autoformatting.
-    --  Use :KickstartFormatToggle to toggle autoformatting on or off
     local format_is_enabled = true
-    vim.api.nvim_create_user_command('KickstartFormatToggle', function()
+    vim.api.nvim_create_user_command('FormatToggle', function()
       format_is_enabled = not format_is_enabled
       print('Setting autoformatting to: ' .. tostring(format_is_enabled))
     end, {})
@@ -20,7 +20,7 @@ return {
     local _augroups = {}
     local get_augroup = function(client)
       if not _augroups[client.id] then
-        local group_name = 'kickstart-lsp-format-' .. client.name
+        local group_name = 'lsp-format-' .. client.name
         local id = vim.api.nvim_create_augroup(group_name, { clear = true })
         _augroups[client.id] = id
       end
@@ -32,7 +32,7 @@ return {
     --
     -- See `:help LspAttach` for more information about this autocmd event.
     vim.api.nvim_create_autocmd('LspAttach', {
-      group = vim.api.nvim_create_augroup('kickstart-lsp-attach-format', { clear = true }),
+      group = vim.api.nvim_create_augroup('lsp-attach-format', { clear = true }),
       -- This is where we attach the autoformatting for reasonable clients
       callback = function(args)
         local client_id = args.data.client_id
@@ -71,4 +71,41 @@ return {
       end,
     })
   end,
+  on_attach = function(_, bufnr)
+    local nmap = function(keys, func, desc)
+      if desc then
+        desc = 'LSP: ' .. desc
+      end
+      vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+    end
+
+    nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+    nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+
+    nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+    nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+    nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+    nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
+    nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+    nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+
+    -- See `:help K` for why this keymap
+    nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+    nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+
+    -- Lesser used LSP functionality
+    nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+    nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
+    nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
+    nmap('<leader>wl', function()
+      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, '[W]orkspace [L]ist Folders')
+
+    -- Create a command `:Format` local to the LSP buffer
+    vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+      vim.lsp.buf.format()
+    end, { desc = 'Format current buffer with LSP' })
+  end,
 }
+
+return M
