@@ -20,10 +20,12 @@ brew install \
         docker \
 	docker-compose \
 	docker-credential-helper \
+	docker-buildx \
 	awscli \
 	pandoc \
 	ripgrep \
-	libpq
+	libpq \
+	delve
 
 brew install --cask aws-vault
 brew link --force libpq
@@ -51,4 +53,5 @@ pipx ensurepath
 
 mkdir -p ~/.docker/cli-plugins
 ln -sfn /opt/homebrew/opt/docker-compose/bin/docker-compose ~/.docker/cli-plugins/docker-compose
+ln -sfn /opt/homebrew/bin/docker-buildx ~/.docker/cli-plugins/docker-buildx
 

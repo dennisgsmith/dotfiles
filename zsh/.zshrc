@@ -9,6 +9,8 @@ export PATH="/opt/homebrew/sbin:$PATH"
 # Make pipx software globally available
 export PATH="$PATH:$HOME/.local/bin"
 
+export PATH="$PATH:$HOME/go/bin"
+
 # git autocomplete
 autoload -Uz compinit && compinit
 

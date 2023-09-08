@@ -17,12 +17,24 @@ local M = {
   },
   opts = function()
     local fb_actions = require "telescope._extensions.file_browser.actions"
-    local theme = require("telescope.themes")
     return {
       defaults = {
         layout_stategy = 'vertical',
         layout_config = { width = 0.95 },
         sorting_strategy = "ascending",
+        vimgrep_arguments = {
+          'rg',
+          '--color=never',
+          '--no-heading',
+          '--with-filename',
+          '--line-number',
+          '--column',
+          '--smart-case',
+          '--no-ignore-vcs',
+          '--hidden',
+          "--glob",
+          "!**/.git/*"
+        },
       },
       extensions = {
         file_browser = {
