@@ -1,5 +1,10 @@
 {
   "Lua.diagnostics.globals": [
-        "vim"
-  ]
+    "vim"
+  ],
+  "Lua.format.defaultConfig": {
+    "indent_style": "space",
+    "indent_size": "2"
+  },
+  "Lua.workspace.useGitIgnore": false
 }

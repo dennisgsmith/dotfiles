@@ -32,8 +32,10 @@ local M = {
           '--smart-case',
           '--no-ignore-vcs',
           '--hidden',
-          "--glob",
-          "!**/.git/*"
+          '--glob',
+          '!**/.git/*',
+          '--glob',
+          '!**/node_modules/*',
         },
       },
       extensions = {

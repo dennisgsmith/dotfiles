@@ -1,7 +1,5 @@
 -- keeps track of buffers that have been "touched" (entered insert mode or modified the buffer)
-local id = vim.api.nvim_create_augroup("startup", {
-	clear = false
-})
+local id = vim.api.nvim_create_augroup("startup", { clear = false })
 
 local persistbuffer = function(bufnr)
 	bufnr = bufnr or vim.api.nvim_get_current_buf()
@@ -35,3 +33,5 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
 
+vim.cmd [[autocmd InsertEnter * :set norelativenumber]]
+vim.cmd [[autocmd InsertLeave * :set relativenumber]]
