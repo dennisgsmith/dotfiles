@@ -1,6 +1,7 @@
 local M = {
   "folke/zen-mode.nvim",
   dependencies = { "folke/twilight.nvim" },
+  keys = { { "<leader>zm", "<cmd>ZenMode<cr>", desc = "Toggle [z]en [m]ode" } },
   opts = {
     window = {
       backdrop = 0.95, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
