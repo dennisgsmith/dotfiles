@@ -89,3 +89,8 @@ vim.keymap.set('t', '<leader><Left>', '<C-\\><C-N><C-w>h', t_opts)
 vim.keymap.set('t', '<leader><Down>', '<C-\\><C-N><C-w>j', t_opts)
 vim.keymap.set('t', '<leader><Up>', '<C-\\><C-N><C-w>k', t_opts)
 vim.keymap.set('t', '<leader><Right>', '<C-\\><C-N><C-w>l', t_opts)
+
+vim.keymap.set("n", "=", [[<cmd>vertical resize +5<cr>]])   -- make the window biger vertically
+vim.keymap.set("n", "-", [[<cmd>vertical resize -5<cr>]])   -- make the window smaller vertically
+vim.keymap.set("n", "+", [[<cmd>horizontal resize +2<cr>]]) -- make the window bigger horizontally by pressing shift and =
+vim.keymap.set("n", "_", [[<cmd>horizontal resize -2<cr>]]) -- make the window smaller horizontally by pressing shift and -

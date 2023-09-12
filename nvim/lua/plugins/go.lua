@@ -15,6 +15,7 @@ local M = {
       pattern = "*.go",
       callback = function()
         require('go.format').goimport()
+        vim.lsp.buf.format()
       end,
       group = format_sync_grp,
     })
