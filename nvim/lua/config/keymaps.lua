@@ -72,3 +72,20 @@ vim.api.nvim_create_autocmd("CursorHold", {
 		vim.diagnostic.open_float(nil, opts)
 	end,
 })
+
+local n_opts = { silent = true, noremap = true }
+local t_opts = { silent = true }
+
+-- Normal mode
+-- Better window navigation
+vim.keymap.set('n', '<leader><Left>', '<C-w>h', n_opts)
+vim.keymap.set('n', '<leader><Down>', '<C-w>j', n_opts)
+vim.keymap.set('n', '<leader><Up>', '<C-w>k', n_opts)
+vim.keymap.set('n', '<leader><Right>', '<C-w>l', n_opts)
+
+-- Terminal mode
+vim.keymap.set('t', '<esc>', '<C-\\><C-N>', t_opts)
+vim.keymap.set('t', '<leader><Left>', '<C-\\><C-N><C-w>h', t_opts)
+vim.keymap.set('t', '<leader><Down>', '<C-\\><C-N><C-w>j', t_opts)
+vim.keymap.set('t', '<leader><Up>', '<C-\\><C-N><C-w>k', t_opts)
+vim.keymap.set('t', '<leader><Right>', '<C-\\><C-N><C-w>l', t_opts)
