@@ -1,11 +1,14 @@
 local M = {
   'nvim-lualine/lualine.nvim',
   dependencies = { 'nvim-tree/nvim-web-devicons' },
-  opts = {},
-  config = function()
-    require('lualine').setup({
-      extensions = { 'lazy', 'fugitive' },
-    })
+  opts = {
+    options = {
+      globalstatus = true,
+    },
+    extensions = { 'lazy', 'fugitive' },
+  },
+  config = function(_, opts)
+    require('lualine').setup(opts)
   end,
   event = "VimEnter",
   lazy = false,

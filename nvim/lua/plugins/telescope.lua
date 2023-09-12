@@ -36,6 +36,8 @@ local M = {
           '!**/.git/*',
           '--glob',
           '!**/node_modules/*',
+          '--glob',
+          '!**/vendor/*',
         },
       },
       extensions = {
