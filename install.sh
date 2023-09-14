@@ -25,7 +25,8 @@ brew install \
 	pandoc \
 	ripgrep \
 	libpq \
-	delve
+	delve \
+	lazydocker
 
 brew install --cask aws-vault
 brew link --force libpq

@@ -16,6 +16,7 @@ autoload -Uz compinit && compinit
 
 # neovim
 alias nv="nvim"
+alias lzd="DOCKER_HOST=unix:///$HOME/.colima/docker.sock lazydocker"
 
 alias history="history 1"
 
