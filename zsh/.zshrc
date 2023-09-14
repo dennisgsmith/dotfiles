@@ -17,7 +17,7 @@ autoload -Uz compinit && compinit
 # neovim
 alias nv="nvim"
 alias lzd="DOCKER_HOST=unix:///$HOME/.colima/docker.sock lazydocker"
-
+alias lzg=lazygit
 alias history="history 1"
 
 # asdf
@@ -31,4 +31,3 @@ export TERM=wezterm
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-

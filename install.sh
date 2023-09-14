@@ -26,7 +26,8 @@ brew install \
 	ripgrep \
 	libpq \
 	delve \
-	lazydocker
+	lazydocker \
+	lazygit
 
 brew install --cask aws-vault
 brew link --force libpq
