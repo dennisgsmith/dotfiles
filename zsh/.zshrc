@@ -11,12 +11,14 @@ export PATH="$PATH:$HOME/.local/bin"
 
 export PATH="$PATH:$HOME/go/bin"
 
+export DOCKER_HOST=unix:///$HOME/.colima/docker.sock
+
 # git autocomplete
 autoload -Uz compinit && compinit
 
 # neovim
 alias nv="nvim"
-alias lzd="DOCKER_HOST=unix:///$HOME/.colima/docker.sock lazydocker"
+alias lzd=lazydocker
 alias lzg=lazygit
 alias history="history 1"
 

@@ -100,7 +100,7 @@ local nvim_lspconfig = {
     vim.diagnostic.config({
       virtual_text = false,
       float = {
-        focusable = false,
+        focusable = true,
         style = "minimal",
         border = "rounded",
         source = "always",

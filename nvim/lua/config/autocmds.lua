@@ -31,7 +31,5 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 	pattern = '*',
 })
 
-vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
-
 vim.cmd [[autocmd InsertEnter * :set norelativenumber]]
 vim.cmd [[autocmd InsertLeave * :set relativenumber]]

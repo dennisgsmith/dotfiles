@@ -43,6 +43,3 @@ vim.cmd.set('splitright')
 
 -- Turn off inline diagnostic text
 vim.diagnostic.config({ virtual_text = false, float = { border = "rounded" } })
-
--- Show line diagnostics automatically in hover window
-vim.o.updatetime = 250

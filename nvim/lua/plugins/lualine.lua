@@ -3,6 +3,7 @@ local M = {
   dependencies = { 'nvim-tree/nvim-web-devicons' },
   opts = {
     options = {
+      theme = "catppuccin",
       globalstatus = true,
     },
     extensions = { 'lazy', 'fugitive' },

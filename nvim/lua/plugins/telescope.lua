@@ -11,12 +11,44 @@ local M = {
         return vim.fn.executable 'make' == 1
       end,
     },
+    {
+      "nvim-telescope/telescope-live-grep-args.nvim",
+      version = "^1.0.0",
+    },
     { "nvim-telescope/telescope-file-browser.nvim" },
     { "nvim-telescope/telescope-ui-select.nvim" },
     { 'nvim-lua/plenary.nvim' },
   },
   opts = function()
-    local fb_actions = require "telescope._extensions.file_browser.actions"
+    local select_dir_for_grep = function(prompt_bufnr)
+      local action_state = require("telescope.actions.state")
+      local fb = require("telescope").extensions.file_browser
+      local lga = require("telescope").extensions.live_grep_args
+      local current_line = action_state.get_current_line()
+
+      fb.file_browser({
+        files = false,
+        depth = false,
+        attach_mappings = function(prompt_bufnr)
+          require("telescope.actions").select_default:replace(function()
+            local entry_path = action_state.get_selected_entry().Path
+            local dir = entry_path:is_dir() and entry_path or entry_path:parent()
+            local relative = dir:make_relative(vim.fn.getcwd())
+            local absolute = dir:absolute()
+
+            lga.live_grep_args({
+              results_title = relative .. "/",
+              cwd = absolute,
+              default_text = current_line,
+            })
+          end)
+
+          return true
+        end,
+      })
+    end
+    local lga_actions = require("telescope-live-grep-args.actions")
+    local fb_actions = require("telescope._extensions.file_browser.actions")
     return {
       defaults = {
         layout_stategy = 'vertical',
@@ -41,6 +73,15 @@ local M = {
         },
       },
       extensions = {
+        live_grep_args = {
+          auto_quoting = true,
+          mappings = {
+            i = {
+              ["<C-k>"] = lga_actions.quote_prompt(),
+              ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
+            },
+          },
+        },
         file_browser = {
           initial_mode = "normal",
           no_ignore = true,
@@ -76,10 +117,10 @@ local M = {
               ["<C-e>"] = fb_actions.goto_home_dir,
               ["<C-w>"] = fb_actions.goto_cwd,
               ["<C-t>"] = fb_actions.change_cwd,
-              ["<C-f>"] = fb_actions.toggle_browser,
               ["<C-h>"] = fb_actions.toggle_hidden,
               ["<C-s>"] = fb_actions.toggle_all,
               ["<bs>"] = fb_actions.backspace,
+              ["<C-f>"] = select_dir_for_grep,
             },
             ["n"] = {
               ["c"] = fb_actions.create,
@@ -92,9 +133,9 @@ local M = {
               ["e"] = fb_actions.goto_home_dir,
               ["w"] = fb_actions.goto_cwd,
               ["t"] = fb_actions.change_cwd,
-              ["f"] = fb_actions.toggle_browser,
               ["h"] = fb_actions.toggle_hidden,
               ["s"] = fb_actions.toggle_all,
+              ["f"] = select_dir_for_grep,
             },
           },
         },
@@ -105,6 +146,7 @@ local M = {
     local telescope = require("telescope")
     telescope.setup(opts)
     telescope.load_extension("ui-select")
+    telescope.load_extension("live_grep_args")
     telescope.load_extension("file_browser")
     telescope.load_extension('fzf')
   end,
