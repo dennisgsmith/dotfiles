@@ -56,6 +56,7 @@ local M = {
       ensure_installed = {
         'delve',
       },
+      automatic_installation = true,
     }
 
 

@@ -66,7 +66,7 @@ return {
 	},
 
 	-- Colors
-	color_scheme                  = scheme_for_appearance(a, LIGHT_COLORSCHEME, DARK_COLORSCHEME),
+	color_scheme                 = scheme_for_appearance(a, LIGHT_COLORSCHEME, DARK_COLORSCHEME),
 	default_cursor_style         = 'BlinkingBar',
 	cursor_blink_ease_in         = 'Constant',
 	cursor_blink_ease_out        = 'Constant',

@@ -11,8 +11,8 @@ local M = {
       },
     },
     handlers = {
-      gitsigns = true,   -- Requires gitsigns
-      search = true,     -- Requires hlslens
+      gitsigns = true, -- Requires gitsigns
+      search = true,   -- Requires hlslens
     },
   },
   lazy = false,

@@ -21,6 +21,7 @@ alias nv="nvim"
 alias lzd=lazydocker
 alias lzg=lazygit
 alias history="history 1"
+alias ls=lsd
 
 # asdf
 . "$HOME/.asdf/asdf.sh"
