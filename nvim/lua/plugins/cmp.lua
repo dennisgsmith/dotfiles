@@ -1,4 +1,4 @@
-local M = {
+return {
   "hrsh7th/nvim-cmp",
   event = "BufReadPre",
   dependencies = {
@@ -108,6 +108,3 @@ local M = {
     })
   end,
 }
-
-return M
-

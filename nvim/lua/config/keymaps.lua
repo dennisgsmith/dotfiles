@@ -85,3 +85,5 @@ vim.keymap.set("n", "_", [[<cmd>horizontal resize -2<cr>]]) -- make the window s
 
 vim.keymap.set("n", "<C-d>", "<C-d>zz", n_opts)
 vim.keymap.set("n", "<C-u>", "<C-u>zz", n_opts)
+vim.keymap.set("n", "n", "nzzzv", n_opts)
+vim.keymap.set("n", "N", "Nzzzv", n_opts)
