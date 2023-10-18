@@ -47,7 +47,7 @@ wezterm.on('user-var-changed', function(window, pane, name, value)
 	window:set_config_overrides(overrides)
 end)
 
-return {
+local c = {
 	-- Fonts
 	font                         = wezterm.font_with_fallback({ "JetBrains Mono", "termicons" }),
 	font_size                    = 13.0,
@@ -77,8 +77,46 @@ return {
 	window_frame                 = {
 		active_titlebar_bg = border_color,
 	},
-	enable_tab_bar               = false,
+	enable_scroll_bar            = false,
+	use_fancy_tab_bar            = false,
+	enable_tab_bar               = true,
+	tab_bar_at_bottom            = true,
 
 	macos_window_background_blur = 100, -- blur
 	hide_tab_bar_if_only_one_tab = false, -- [false] hide the tab bar when there is only a single tab in the window
 }
+
+wezterm.plugin.require("https://github.com/nekowinston/wezterm-bar").apply_to_config(c, {
+	position = "bottom",
+	max_width = 32,
+	dividers = "slant_right", -- or "slant_left", "arrows", "rounded", false
+	indicator = {
+		leader = {
+			enabled = true,
+			off = " ",
+			on = " ",
+		},
+		mode = {
+			enabled = true,
+			names = {
+				resize_mode = "RESIZE",
+				copy_mode = "VISUAL",
+				search_mode = "SEARCH",
+			},
+		},
+	},
+	tabs = {
+		numerals = "arabic", -- or "roman"
+		pane_count = "superscript", -- or "subscript", false
+		brackets = {
+			active = { "", ":" },
+			inactive = { "", ":" },
+		},
+	},
+	clock = {     -- note that this overrides the whole set_right_status
+		enabled = true,
+		format = "%H:%M", -- use https://wezfurlong.org/wezterm/config/lua/wezterm.time/Time/format.html
+	},
+})
+
+return c
