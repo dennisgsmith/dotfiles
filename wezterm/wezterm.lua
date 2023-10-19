@@ -113,10 +113,18 @@ wezterm.plugin.require("https://github.com/nekowinston/wezterm-bar").apply_to_co
 			inactive = { "", ":" },
 		},
 	},
-	clock = {     -- note that this overrides the whole set_right_status
+	clock = {   -- note that this overrides the whole set_right_status
 		enabled = true,
 		format = "%H:%M", -- use https://wezfurlong.org/wezterm/config/lua/wezterm.time/Time/format.html
 	},
 })
+
+for i = 1, 8 do
+	table.insert(c.keys, {
+		key = tostring(i),
+		mods = 'CTRL | ALT',
+		action = wezterm.action.MoveTab(i - 1),
+	})
+end
 
 return c
