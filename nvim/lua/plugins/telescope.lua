@@ -70,6 +70,8 @@ local M = {
           '!**/node_modules/*',
           '--glob',
           '!**/vendor/*',
+          '--glob',
+          '!**/direnv/*',
         },
       },
       extensions = {
