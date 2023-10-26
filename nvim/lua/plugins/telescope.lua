@@ -71,7 +71,7 @@ local M = {
           '--glob',
           '!**/vendor/*',
           '--glob',
-          '!**/direnv/*',
+          '!**/.direnv/*',
         },
       },
       extensions = {
