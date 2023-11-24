@@ -15,7 +15,7 @@
     defaultPackage.${arch} =
       home-manager.defaultPackage.${arch};
 
-    homeConfigurations.dennissmith = dennissmith
+    homeConfigurations.dennissmith =
       home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.${arch};
         modules = [ ./home.nix ];
