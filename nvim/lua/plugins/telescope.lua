@@ -72,6 +72,8 @@ local M = {
           '!**/vendor/*',
           '--glob',
           '!**/.direnv/*',
+          '--glob',
+          '!**/build/*',
         },
       },
       extensions = {
@@ -85,7 +87,7 @@ local M = {
           },
         },
         file_browser = {
-          initial_mode = "normal",
+          initial_mode = "insert",
           no_ignore = true,
           cwd_to_path = false,
           grouped = true,
