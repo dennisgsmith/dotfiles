@@ -1,4 +1,5 @@
 local wezterm = require 'wezterm';
+local act = wezterm.action
 
 local LIGHT_COLORSCHEME = "Catppuccin Latte"
 local DARK_COLORSCHEME = "Catppuccin Mocha"
@@ -34,11 +35,11 @@ wezterm.on('user-var-changed', function(window, pane, name, value)
 		local number_value = tonumber(value)
 		if incremental ~= nil then
 			while (number_value > 0) do
-				window:perform_action(wezterm.action.IncreaseFontSize, pane)
+				window:perform_action(act.IncreaseFontSize, pane)
 				number_value = number_value - 1
 			end
 		elseif number_value < 0 then
-			window:perform_action(wezterm.action.ResetFontSize, pane)
+			window:perform_action(act.ResetFontSize, pane)
 			overrides.font_size = nil
 		else
 			overrides.font_size = number_value
@@ -55,13 +56,33 @@ local c = {
 	keys                         = {
 		{
 			key = 'd',
-			mods = 'SUPER | SHIFT',
-			action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' },
+			mods = 'SUPER',
+			action = act.SplitVertical { domain = 'CurrentPaneDomain' },
 		},
 		{
 			key = 'd',
+			mods = 'SUPER | SHIFT',
+			action = act.SplitHorizontal { domain = 'CurrentPaneDomain' },
+		},
+		{
+			key = 'h',
 			mods = 'SUPER',
-			action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
+			action = act.ActivatePaneDirection 'Left',
+		},
+		{
+			key = 'j',
+			mods = 'SUPER',
+			action = act.ActivatePaneDirection 'Down',
+		},
+		{
+			key = 'k',
+			mods = 'SUPER',
+			action = act.ActivatePaneDirection 'Up',
+		},
+		{
+			key = 'l',
+			mods = 'SUPER',
+			action = act.ActivatePaneDirection 'Right',
 		},
 	},
 
@@ -120,11 +141,11 @@ wezterm.plugin.require("https://github.com/nekowinston/wezterm-bar").apply_to_co
 })
 
 for i = 1, 8 do
-	table.insert(c.keys, {
+	table.insert({
 		key = tostring(i),
 		mods = 'CTRL | ALT',
-		action = wezterm.action.MoveTab(i - 1),
-	})
+		action = act.MoveTab(i - 1),
+	}, c.keys)
 end
 
 return c
