@@ -29,7 +29,7 @@ vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sk', require('telescope.builtin').keymaps, { desc = '[K]eymaps' })
-vim.keymap.set('n', '<leader>sp', require('telescope').extensions.live_grep_args.live_grep_args,
+vim.keymap.set('n', '<leader>sa', require('telescope').extensions.live_grep_args.live_grep_args,
 	{ desc = '[S]earch [P]roject' })
 vim.keymap.set('n', '<leader>sg', require('telescope').extensions.live_grep_args.live_grep_args,
 	{ desc = '[S]earch by [G]rep' })
@@ -64,19 +64,12 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 local n_opts = { silent = true, noremap = true }
 local t_opts = { silent = true }
 
--- Normal mode
--- Better window navigation
-vim.keymap.set('n', '<leader><Left>', '<C-w>h', n_opts)
-vim.keymap.set('n', '<leader><Down>', '<C-w>j', n_opts)
-vim.keymap.set('n', '<leader><Up>', '<C-w>k', n_opts)
-vim.keymap.set('n', '<leader><Right>', '<C-w>l', n_opts)
-
 -- Terminal mode
 vim.keymap.set('t', '<esc>', '<C-\\><C-N>', t_opts)
-vim.keymap.set('t', '<leader><Left>', '<C-\\><C-N><C-w>h', t_opts)
-vim.keymap.set('t', '<leader><Down>', '<C-\\><C-N><C-w>j', t_opts)
-vim.keymap.set('t', '<leader><Up>', '<C-\\><C-N><C-w>k', t_opts)
-vim.keymap.set('t', '<leader><Right>', '<C-\\><C-N><C-w>l', t_opts)
+vim.keymap.set('t', '<C-w>h', '<C-\\><C-N><C-w>h', t_opts)
+vim.keymap.set('t', '<C-w>j', '<C-\\><C-N><C-w>j', t_opts)
+vim.keymap.set('t', '<C-w>k', '<C-\\><C-N><C-w>k', t_opts)
+vim.keymap.set('t', '<C-w>l', '<C-\\><C-N><C-w>l', t_opts)
 
 vim.keymap.set("n", "=", [[<cmd>vertical resize +5<cr>]])   -- make the window biger vertically
 vim.keymap.set("n", "-", [[<cmd>vertical resize -5<cr>]])   -- make the window smaller vertically
