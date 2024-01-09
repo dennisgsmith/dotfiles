@@ -1,4 +1,4 @@
-local M = {
+return {
   'lewis6991/gitsigns.nvim',
   opts = {
     signs = {
@@ -21,5 +21,3 @@ local M = {
   end,
   dependencies = { 'petertriho/nvim-scrollbar', 'f-person/auto-dark-mode.nvim' },
 }
-
-return M

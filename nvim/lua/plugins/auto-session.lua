@@ -6,12 +6,12 @@ local M = {
   keys = {
     { "<leader>as", "<cmd>Autosession search<cr>", desc = "[A]utosession [S]earch" },
     { "<leader>ad", "<cmd>Autosession delete<cr>", desc = "[A]utosession [D]elete" },
-    { "<leader>ss", "<cmd>SessionSave<cr>", desc = "[S]ession [S]ave" },
+    { "<leader>ss", "<cmd>SessionSave<cr>",        desc = "[S]ession [S]ave" },
   },
   opts = {
     log_level = 'info',
     auto_session_enable_last_session = false,
-    auto_session_root_dir = vim.fn.stdpath('data').."/sessions/",
+    auto_session_root_dir = vim.fn.stdpath('data') .. "/sessions/",
     auto_session_enabled = true,
     auto_save_enabled = nil,
     auto_restore_enabled = nil,
@@ -31,6 +31,8 @@ local M = {
       theme_conf = { border = true },
       previewer = true,
     },
+    -- needed to set correct lualine theme ater session init
+    post_restore_cmds = { require("lualine").setup },
   },
   config = function(_, opts)
     require("auto-session").setup(opts)

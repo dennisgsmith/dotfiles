@@ -1,4 +1,4 @@
-local M = {
+return {
   'nvim-lualine/lualine.nvim',
   dependencies = { 'nvim-tree/nvim-web-devicons' },
   opts = {
@@ -18,5 +18,3 @@ local M = {
   lazy = false,
   priority = 1001,
 }
-
-return M

@@ -17,6 +17,7 @@ local M = {
     },
     { "nvim-telescope/telescope-file-browser.nvim" },
     { "nvim-telescope/telescope-ui-select.nvim" },
+    { "nvim-telescope/telescope-frecency.nvim" },
     { 'nvim-lua/plenary.nvim' },
   },
   opts = function()
@@ -75,13 +76,26 @@ local M = {
           '--glob',
           '!**/build/*',
         },
+        mappings = {
+          i = {
+            ["<M-p>"] = require('telescope.actions').cycle_history_prev,
+            ["<M-n>"] = require('telescope.actions').cycle_history_next,
+          },
+          n = {
+            ["<M-k>"] = require('telescope.actions').cycle_history_prev,
+            ["<M-j>"] = require('telescope.actions').cycle_history_next,
+          },
+        },
+        history = {
+          limit = 100,
+        },
       },
       extensions = {
         live_grep_args = {
           auto_quoting = true,
           mappings = {
             i = {
-              ["<C-k>"] = lga_actions.quote_prompt(),
+              ["<C-8>"] = lga_actions.quote_prompt(),
               ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
             },
           },
@@ -109,7 +123,7 @@ local M = {
           respect_gitignore = false,
           git_status = true,
           mappings = {
-            ["i"] = {
+            i = {
               ["<A-c>"] = fb_actions.create,
               ["<S-CR>"] = fb_actions.create_from_prompt,
               ["<A-r>"] = fb_actions.rename,
@@ -126,7 +140,7 @@ local M = {
               ["<bs>"] = fb_actions.backspace,
               ["<C-f>"] = select_dir_for_grep,
             },
-            ["n"] = {
+            n = {
               ["c"] = fb_actions.create,
               ["r"] = fb_actions.rename,
               ["m"] = fb_actions.move,
@@ -153,6 +167,7 @@ local M = {
     telescope.load_extension("live_grep_args")
     telescope.load_extension("file_browser")
     telescope.load_extension('fzf')
+    telescope.load_extension('frecency')
   end,
 }
 
