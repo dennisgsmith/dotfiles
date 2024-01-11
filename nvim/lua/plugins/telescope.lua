@@ -17,7 +17,6 @@ local M = {
     },
     { "nvim-telescope/telescope-file-browser.nvim" },
     { "nvim-telescope/telescope-ui-select.nvim" },
-    { "nvim-telescope/telescope-frecency.nvim" },
     { 'nvim-lua/plenary.nvim' },
   },
   opts = function()
@@ -167,7 +166,6 @@ local M = {
     telescope.load_extension("live_grep_args")
     telescope.load_extension("file_browser")
     telescope.load_extension('fzf')
-    telescope.load_extension('frecency')
   end,
 }
 
