@@ -10,6 +10,7 @@ export PATH="$PATH:$HOME/go/bin"
 
 export DOCKER_HOST=unix:///$HOME/.colima/docker.sock
 export TERM=wezterm
+export GPG_TTY=$(tty)
 
 alias nv="nvim"
 alias lzd=lazydocker
@@ -25,3 +26,5 @@ eval "$(direnv hook zsh)"
 autoload -Uz compinit && compinit
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
