@@ -36,26 +36,6 @@ local nvim_lspconfig = {
       return _augroups[client.id]
     end
 
-
-    local function org_imports()
-      local clients = vim.lsp.buf_get_clients()
-      for _, client in pairs(clients) do
-        local params = vim.lsp.util.make_range_params(nil, client.offset_encoding)
-        params.context = { only = { "source.organizeImports" } }
-
-        local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 5000)
-        for _, res in pairs(result or {}) do
-          for _, r in pairs(res.result or {}) do
-            if r.edit then
-              vim.lsp.util.apply_workspace_edit(r.edit, client.offset_encoding)
-            else
-              vim.lsp.buf.execute_command(r.command)
-            end
-          end
-        end
-      end
-    end
-
     -- Whenever an LSP attaches to a buffer, we will run this function.
     --
     -- See `:help LspAttach` for more information about this autocmd event.
@@ -91,7 +71,6 @@ local nvim_lspconfig = {
                 return c.id == client.id
               end,
             }
-            org_imports()
           end,
         })
       end,
@@ -194,6 +173,19 @@ local nvim_lspconfig = {
           capabilities = capabilities,
         })
       end,
+      -- ["jsonls"] = function()
+      --   lspconfig.jsonls.setup({
+      --     commands = {
+      --       Format = {
+      --         function()
+      --           vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line("$"), 0 })
+      --         end
+      --       }
+      --     },
+      --     on_attach = on_attach,
+      --     capabilities = capabilities,
+      --   })
+      -- end,
       ["clangd"] = function()
         local capabilities_cpp = capabilities
         capabilities_cpp.offsetEncoding = { "uts-16" }
@@ -211,10 +203,6 @@ local nvim_lspconfig = {
               },
               format = {
                 enable = true,
-                defaultConfig = {
-                  indent_style = "space",
-                  indent_size = "2",
-                }
               },
               telemetry = {
                 enable = false,
@@ -223,6 +211,25 @@ local nvim_lspconfig = {
           },
           on_attach = on_attach,
           capabilities = capabilities,
+        })
+      end,
+      ["prettierd"] = function()
+        lspconfig.prettierd.setup({
+          bin = 'prettierd',
+          filetypes = {
+            "css",
+            "graphql",
+            "html",
+            "javascript",
+            "javascriptreact",
+            "json",
+            "less",
+            "markdown",
+            "scss",
+            "typescript",
+            "typescriptreact",
+            "yaml",
+          },
         })
       end,
     })

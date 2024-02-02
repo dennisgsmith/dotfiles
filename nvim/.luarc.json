@@ -1,8 +1,8 @@
 {
-  "Lua.diagnostics.globals": [
+  "diagnostics.globals": [
     "vim"
   ],
-  "Lua.format.defaultConfig": {
+  "format.defaultConfig": {
     "indent_style": "space",
     "indent_size": "2"
   }
