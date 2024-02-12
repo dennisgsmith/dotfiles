@@ -1,4 +1,4 @@
-local M = {
+return {
   'petertriho/nvim-scrollbar',
   dependencies = { 'f-person/auto-dark-mode.nvim' },
   opts = {
@@ -18,5 +18,3 @@ local M = {
   lazy = false,
   priority = 1002,
 }
-
-return M

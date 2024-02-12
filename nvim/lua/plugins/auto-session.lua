@@ -1,4 +1,4 @@
-local M = {
+return {
   'rmagatti/auto-session',
   dependencies = { 'nvim-telescope/telescope.nvim' },
   lazy = false,
@@ -38,5 +38,3 @@ local M = {
     require("auto-session").setup(opts)
   end
 }
-
-return M

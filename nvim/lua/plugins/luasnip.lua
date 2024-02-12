@@ -1,4 +1,4 @@
-local M = {
+return {
   "L3MON4D3/LuaSnip",
   opts = {},
   dependencies = {
@@ -9,5 +9,3 @@ local M = {
   },
   config = true,
 }
-
-return M

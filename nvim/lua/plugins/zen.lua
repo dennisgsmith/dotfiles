@@ -1,4 +1,4 @@
-local M = {
+return {
   "folke/zen-mode.nvim",
   dependencies = { "folke/twilight.nvim" },
   keys = {
@@ -49,5 +49,3 @@ local M = {
     -- end,
   }
 }
-
-return M

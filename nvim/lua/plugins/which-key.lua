@@ -1,6 +1,4 @@
-local M = {
+return {
   'folke/which-key.nvim',
   opts = {},
 }
-
-return M
