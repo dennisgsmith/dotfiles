@@ -1,4 +1,4 @@
-return {
+local M = {
   "kevinhwang91/nvim-hlslens",
   keys = {
     {
@@ -50,3 +50,5 @@ return {
   },
   config = function() require("scrollbar.handlers.search").setup() end,
 }
+
+return M

@@ -1,4 +1,4 @@
-return {
+local M = {
   'nvim-telescope/telescope.nvim',
   event = "BufReadPre",
   lazy = false,
@@ -168,3 +168,5 @@ return {
     telescope.load_extension('fzf')
   end,
 }
+
+return M

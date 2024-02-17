@@ -1,4 +1,4 @@
-return {
+local M = {
   "catppuccin/nvim",
   name = "catppuccin",
   lazy = false,    -- make sure we load this during startup if it is your main colorscheme
@@ -21,3 +21,5 @@ return {
     require('catppuccin').setup(opts)
   end,
 }
+
+return M

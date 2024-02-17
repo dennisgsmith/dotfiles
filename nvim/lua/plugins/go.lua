@@ -1,4 +1,4 @@
-return {
+local M = {
   "ray-x/go.nvim",
   dependencies = {
     "ray-x/guihua.lua",
@@ -15,3 +15,5 @@ return {
   ft = { "go", 'gomod' },
   build = ':lua require("go.install").update_all_sync()'
 }
+
+return M

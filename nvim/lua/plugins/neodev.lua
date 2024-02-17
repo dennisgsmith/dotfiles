@@ -1,4 +1,4 @@
-return {
+local M = {
   "folke/neodev.nvim",
   opts = {
     library = {
@@ -26,3 +26,5 @@ return {
     require('neodev').setup(opts)
   end,
 }
+
+return M

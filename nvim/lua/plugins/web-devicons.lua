@@ -1,4 +1,4 @@
-return {
+local M = {
   "nvim-tree/nvim-web-devicons",
   dependencies = { "mskelton/termicons.nvim" },
   config = function()
@@ -10,3 +10,5 @@ return {
     }
   },
 }
+
+return M

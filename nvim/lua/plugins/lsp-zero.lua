@@ -1,4 +1,4 @@
-return {
+local M = {
   'VonHeikemen/lsp-zero.nvim',
   branch = 'v2.x',
   dependencies = {
@@ -13,3 +13,5 @@ return {
     { 'L3MON4D3/LuaSnip' },     -- Required
   }
 }
+
+return M

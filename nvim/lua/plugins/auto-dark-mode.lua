@@ -1,4 +1,4 @@
-return {
+local M = {
   "f-person/auto-dark-mode.nvim",
   dependencies = {
     "folke/twilight.nvim",
@@ -35,3 +35,5 @@ return {
     end,
   }
 }
+
+return M

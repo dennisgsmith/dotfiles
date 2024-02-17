@@ -1,4 +1,4 @@
-return {
+local M = {
   'mfussenegger/nvim-dap',
   dependencies = {
     'rcarriga/nvim-dap-ui',
@@ -83,3 +83,5 @@ return {
     require('dap-python').setup(os.getenv("VIRTUAL_ENV"))
   end,
 }
+
+return M

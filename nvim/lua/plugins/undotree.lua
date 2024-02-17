@@ -1,3 +1,5 @@
-return {
+local M = {
   'mbbill/undotree',
 }
+
+return M
