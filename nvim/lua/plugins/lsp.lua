@@ -173,19 +173,19 @@ local nvim_lspconfig = {
           capabilities = capabilities,
         })
       end,
-      -- ["jsonls"] = function()
-      --   lspconfig.jsonls.setup({
-      --     commands = {
-      --       Format = {
-      --         function()
-      --           vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line("$"), 0 })
-      --         end
-      --       }
-      --     },
-      --     on_attach = on_attach,
-      --     capabilities = capabilities,
-      --   })
-      -- end,
+      ["jsonls"] = function()
+        lspconfig.jsonls.setup({
+          commands = {
+            Format = {
+              function()
+                vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line("$"), 0 })
+              end
+            }
+          },
+          on_attach = on_attach,
+          capabilities = capabilities,
+        })
+      end,
       ["clangd"] = function()
         local capabilities_cpp = capabilities
         capabilities_cpp.offsetEncoding = { "uts-16" }
@@ -211,25 +211,6 @@ local nvim_lspconfig = {
           },
           on_attach = on_attach,
           capabilities = capabilities,
-        })
-      end,
-      ["prettierd"] = function()
-        lspconfig.prettierd.setup({
-          bin = 'prettierd',
-          filetypes = {
-            "css",
-            "graphql",
-            "html",
-            "javascript",
-            "javascriptreact",
-            "json",
-            "less",
-            "markdown",
-            "scss",
-            "typescript",
-            "typescriptreact",
-            "yaml",
-          },
         })
       end,
     })
