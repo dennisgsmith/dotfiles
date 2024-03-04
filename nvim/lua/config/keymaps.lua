@@ -8,13 +8,8 @@ vim.keymap.set('n', '<leader><F5>', vim.cmd.UndotreeToggle)
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
--- Telescope
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>fb",
-	":Telescope file_browser path=%:p:h select_buffer=true<CR>",
-	{ noremap = true }
-)
+vim.api.nvim_create_user_command("Explore", "Telescope file_browser path=%:p:h select_buffer=true", {})
+
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
 vim.keymap.set('n', '<leader><leader>', '<Cmd>Telescope resume<CR>',
 	{ desc = 'Open most recent picker with last selection' })
