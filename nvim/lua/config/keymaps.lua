@@ -39,10 +39,10 @@ vim.keymap.set('n', '<leader>gc', require('telescope.builtin').git_commits, { de
 -- Telescope / LSP
 local bufopts = { noremap = true }
 vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, bufopts)
-vim.keymap.set("n", "<leader>gd", "<cmd>Telescope lsp_definitions<cr>", bufopts)
+vim.keymap.set("n", "<leader>gd", "<cmd>Telescope lsp_definitions<cr>zz", bufopts)
 vim.keymap.set("n", "<leader>gr", "<cmd>Telescope lsp_references<cr>", bufopts)
-vim.keymap.set("n", "<leader>gi", "<cmd>Telescope lsp_implementations<cr>", bufopts)
-vim.keymap.set("n", "<leader>gt", "<cmd>Telescope lsp_type_definitions<cr>", bufopts)
+vim.keymap.set("n", "<leader>gi", "<cmd>Telescope lsp_implementations<cr>zz", bufopts)
+vim.keymap.set("n", "<leader>gt", "<cmd>Telescope lsp_type_definitions<cr>zz", bufopts)
 vim.keymap.set("n", "<leader>K", vim.lsp.buf.hover, bufopts)
 vim.keymap.set("n", "<leader>kh", vim.lsp.buf.signature_help, bufopts)
 vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, bufopts)

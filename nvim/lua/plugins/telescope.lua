@@ -100,7 +100,7 @@ local M = {
           },
         },
         file_browser = {
-          initial_mode = "insert",
+          initial_mode = "normal",
           no_ignore = true,
           cwd_to_path = false,
           grouped = true,
