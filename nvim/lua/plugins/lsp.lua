@@ -2,19 +2,20 @@ local client_capabilities = vim.lsp.protocol.make_client_capabilities()
 client_capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local nvim_lspconfig = {
-  "neovim/nvim-lspconfig",
-  event = "BufReadPre",
+  'neovim/nvim-lspconfig',
+  event = 'BufReadPre',
   dependencies = {
     'folke/neodev.nvim',
-    "hrsh7th/cmp-nvim-lsp",
+    'hrsh7th/cmp-nvim-lsp',
     'williamboman/mason.nvim',
-    "williamboman/mason-lspconfig.nvim",
+    'williamboman/mason-lspconfig.nvim',
+    'stevearc/conform.nvim',
   },
   opts = {},
   config = function(_, _)
-    local utils = require("utils")
-    local mason_lspconfig = require("mason-lspconfig")
-    local lspconfig = require("lspconfig")
+    local utils = require 'utils'
+    local mason_lspconfig = require 'mason-lspconfig'
+    local lspconfig = require 'lspconfig'
 
     local format_is_enabled = true
     vim.api.nvim_create_user_command('ToggleFormatting', function()
@@ -51,12 +52,10 @@ local nvim_lspconfig = {
           return
         end
 
-        if client.name == 'tsserver' or client.name == 'gopls' then
+        if client.name == 'gopls' then
           return
         end
 
-        -- Create an autocmd that will run *before* we save the buffer.
-        --  Run the formatting command for the LSP that has just attached.
         vim.api.nvim_create_autocmd('BufWritePre', {
           group = get_augroup(client),
           buffer = bufnr,
@@ -65,38 +64,33 @@ local nvim_lspconfig = {
               return
             end
 
-            vim.lsp.buf.format {
-              async = false,
-              filter = function(c)
-                return c.id == client.id
-              end,
-            }
+            require('conform').format { bufnr = args.buf }
           end,
         })
       end,
     })
 
-    vim.diagnostic.config({
+    vim.diagnostic.config {
       virtual_text = false,
       float = {
         focusable = true,
-        style = "minimal",
-        border = "rounded",
-        source = "always",
-        header = "",
-        prefix = "",
+        style = 'minimal',
+        border = 'rounded',
+        source = 'always',
+        header = '',
+        prefix = '',
       },
       signs = true,
       underline = true,
       update_in_insert = true,
       severity_sort = false,
-    })
+    }
 
-    local capabilities = require("cmp_nvim_lsp").default_capabilities(client_capabilities)
+    local capabilities = require('cmp_nvim_lsp').default_capabilities(client_capabilities)
 
     local on_attach = function(_, bufnr)
       -- Enable completion triggered by <c-x><c-o>
-      vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+      vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
       local nmap = function(keys, func, desc)
         if desc then
           desc = 'LSP: ' .. desc
@@ -128,36 +122,36 @@ local nvim_lspconfig = {
 
       -- Create a command `:Format` local to the LSP buffer
       vim.api.nvim_buf_create_user_command(bufnr, 'Format', function()
-        vim.lsp.buf.format()
+        require('conform').format { bufnr = bufnr }
       end, { desc = 'Format current buffer with LSP' })
     end
 
     ---- sign column
-    local signs = require("utils").lsp_signs
+    local signs = require('utils').lsp_signs
 
     for type, icon in pairs(signs) do
-      local hl = "DiagnosticSign" .. type
+      local hl = 'DiagnosticSign' .. type
       vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
     end
 
-    mason_lspconfig.setup({
+    mason_lspconfig.setup {
       ensure_installed = utils.lsp_servers,
-    })
+    }
 
-    mason_lspconfig.setup_handlers({
+    mason_lspconfig.setup_handlers {
       function(server_name)
-        lspconfig[server_name].setup({
+        lspconfig[server_name].setup {
           on_attach = on_attach,
           capabilities = capabilities,
-        })
+        }
       end,
-      ["gopls"] = function()
-        lspconfig.gopls.setup({
+      ['gopls'] = function()
+        lspconfig.gopls.setup {
           on_attach = on_attach,
           capabilities = capabilities,
-          cmd = { "gopls" },
-          filetypes = { "go", "gomod", "gowork", "gotmpl" },
-          root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
+          cmd = { 'gopls' },
+          filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
+          root_dir = lspconfig.util.root_pattern('go.work', 'go.mod', '.git'),
           settings = {
             gopls = {
               completeUnimported = true,
@@ -165,78 +159,82 @@ local nvim_lspconfig = {
             },
             analyses = { unusedparams = true },
           },
-        })
+        }
       end,
-      ["pyright"] = function()
-        lspconfig.pyright.setup({
+      ['pyright'] = function()
+        lspconfig.pyright.setup {
           on_attach = on_attach,
           capabilities = capabilities,
-        })
+        }
       end,
-      ["jsonls"] = function()
-        lspconfig.jsonls.setup({
+      ['jsonls'] = function()
+        lspconfig.jsonls.setup {
           commands = {
             Format = {
               function()
-                vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line("$"), 0 })
-              end
-            }
+                vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line '$', 0 })
+              end,
+            },
           },
           on_attach = on_attach,
           capabilities = capabilities,
-        })
+        }
       end,
-      ["clangd"] = function()
+      ['clangd'] = function()
         local capabilities_cpp = capabilities
-        capabilities_cpp.offsetEncoding = { "uts-16" }
-        lspconfig.clangd.setup({
+        capabilities_cpp.offsetEncoding = { 'uts-16' }
+        lspconfig.clangd.setup {
           on_attach = on_attach,
           capabilities = capabilities_cpp,
-        })
+        }
       end,
-      ["lua_ls"] = function()
-        lspconfig.lua_ls.setup({
+      ['lua_ls'] = function()
+        lspconfig.lua_ls.setup {
           settings = {
             Lua = {
               runtime = {
-                version = "LuaJIT"
+                version = 'LuaJIT',
               },
               format = {
                 enable = true,
+                defaultConfig = {
+                  indent_style = 'space',
+                  indent_size = '2',
+                },
               },
               telemetry = {
                 enable = false,
               },
-            }
+            },
           },
           on_attach = on_attach,
           capabilities = capabilities,
-        })
+        }
       end,
-    })
+    }
   end,
 }
 
 local mason_config = {
-  "williamboman/mason.nvim",
-  build = ":MasonUpdate",
+  'williamboman/mason.nvim',
+  build = ':MasonUpdate',
   opts = {
     pip = {
       upgrade_pip = true,
     },
     ui = {
-      border = "rounded",
+      border = 'rounded',
       icons = {
-        package_installed = "✓",
-        package_pending = "➜",
-        package_uninstalled = "✗",
+        package_installed = '✓',
+        package_pending = '➜',
+        package_uninstalled = '✗',
       },
     },
   },
   config = function(_, opts)
-    require("mason").setup(opts)
-    local utils = require("utils")
-    local mr = require("mason-registry")
+    require('mason').setup(opts)
+    local utils = require 'utils'
+    local mr = require 'mason-registry'
     local packages = utils.mason_packages
     local function ensure_installed()
       for _, package in ipairs(packages) do

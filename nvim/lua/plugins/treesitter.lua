@@ -1,6 +1,6 @@
 local M = {
   'nvim-treesitter/nvim-treesitter',
-  event = "BufReadPost",
+  event = 'BufReadPost',
   build = ':TSUpdate',
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
@@ -68,7 +68,7 @@ local M = {
     },
   },
   config = function(_, opts)
-    require("nvim-treesitter.configs").setup(opts)
+    require('nvim-treesitter.configs').setup(opts)
   end,
 }
 

@@ -1,5 +1,5 @@
 local M = {
-  "kevinhwang91/nvim-hlslens",
+  'kevinhwang91/nvim-hlslens',
   keys = {
     {
       'n',
@@ -18,28 +18,24 @@ local M = {
       [[*<Cmd>lua require('hlslens').start()<CR>]],
       silent = true,
       remap = false,
-
     },
     {
       '#',
       [[#<Cmd>lua require('hlslens').start()<CR>]],
       silent = true,
       remap = false,
-
     },
     {
       'g*',
       [[g*<Cmd>lua require('hlslens').start()<CR>]],
       silent = true,
       remap = false,
-
     },
     {
       'g#',
       [[g#<Cmd>lua require('hlslens').start()<CR>]],
       silent = true,
       remap = false,
-
     },
     {
       '<leader>l',
@@ -48,7 +44,9 @@ local M = {
       remap = false,
     },
   },
-  config = function() require("scrollbar.handlers.search").setup() end,
+  config = function()
+    require('scrollbar.handlers.search').setup()
+  end,
 }
 
 return M

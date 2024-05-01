@@ -1,32 +1,33 @@
-local M = {
+return {
   'mfussenegger/nvim-dap',
   dependencies = {
+    'nvim-neotest/nvim-nio',
     'rcarriga/nvim-dap-ui',
     'williamboman/mason.nvim',
     'jay-babu/mason-nvim-dap.nvim',
     'leoluz/nvim-dap-go',
-    'mfussenegger/nvim-dap-python'
+    'mfussenegger/nvim-dap-python',
   },
   opts = {
     adapters = {
       api = {
-        type = "server",
-        host = "api",
+        type = 'server',
+        host = 'api',
         port = 2345,
-      }
+      },
     },
     configurations = {
       go = {
         {
-          type = "go",
-          name = "delve container debug",
-          request = "attach",
-          mode = "remote",
+          type = 'go',
+          name = 'delve container debug',
+          request = 'attach',
+          mode = 'remote',
           substitutepath = {
             {
-              from = "",
-              to = "",
-            }
+              from = '',
+              to = '',
+            },
           },
         },
       },
@@ -47,8 +48,8 @@ local M = {
     },
   },
   config = function(_, opts)
-    local dap = require('dap')
-    local dapui = require('dapui')
+    local dap = require 'dap'
+    local dapui = require 'dapui'
 
     require('mason-nvim-dap').setup {
       automatic_setup = true,
@@ -58,7 +59,6 @@ local M = {
       },
       automatic_installation = true,
     }
-
 
     vim.keymap.set('n', '<F5>', dap.continue, { desc = 'Debug: Start/Continue' })
     vim.keymap.set('n', '<F1>', dap.step_into, { desc = 'Debug: Step Into' })
@@ -80,8 +80,6 @@ local M = {
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
 
     require('dap-go').setup()
-    require('dap-python').setup(os.getenv("VIRTUAL_ENV"))
+    require('dap-python').setup(os.getenv 'VIRTUAL_ENV')
   end,
 }
-
-return M

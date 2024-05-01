@@ -4,14 +4,14 @@ local M = {
   lazy = false,
   priority = 2500,
   keys = {
-    { "<leader>as", "<cmd>Autosession search<cr>", desc = "[A]utosession [S]earch" },
-    { "<leader>ad", "<cmd>Autosession delete<cr>", desc = "[A]utosession [D]elete" },
-    { "<leader>ss", "<cmd>SessionSave<cr>",        desc = "[S]ession [S]ave" },
+    { '<leader>as', '<cmd>Autosession search<cr>', desc = '[A]utosession [S]earch' },
+    { '<leader>ad', '<cmd>Autosession delete<cr>', desc = '[A]utosession [D]elete' },
+    { '<leader>ss', '<cmd>SessionSave<cr>', desc = '[S]ession [S]ave' },
   },
   opts = {
     log_level = 'info',
     auto_session_enable_last_session = false,
-    auto_session_root_dir = vim.fn.stdpath('data') .. "/sessions/",
+    auto_session_root_dir = vim.fn.stdpath 'data' .. '/sessions/',
     auto_session_enabled = true,
     auto_save_enabled = nil,
     auto_restore_enabled = nil,
@@ -22,7 +22,7 @@ local M = {
       restore_upcoming_session = true,
       pre_cwd_changed_hook = nil,
       post_cwd_changed_hook = function()
-        require("lualine").refresh()
+        require('lualine').refresh()
       end,
     },
     session_lens = {
@@ -32,11 +32,11 @@ local M = {
       previewer = true,
     },
     -- needed to set correct lualine theme ater session init
-    post_restore_cmds = { require("lualine").setup },
+    post_restore_cmds = { require('lualine').setup },
   },
   config = function(_, opts)
-    require("auto-session").setup(opts)
-  end
+    require('auto-session').setup(opts)
+  end,
 }
 
 return M

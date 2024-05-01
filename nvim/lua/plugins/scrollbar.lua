@@ -4,15 +4,15 @@ local M = {
   opts = {
     marks = {
       GitAdd = {
-        text = "|",
+        text = '|',
       },
       GitChange = {
-        text = "|",
+        text = '|',
       },
     },
     handlers = {
       gitsigns = true, -- Requires gitsigns
-      search = true,   -- Requires hlslens
+      search = true, -- Requires hlslens
     },
   },
   lazy = false,

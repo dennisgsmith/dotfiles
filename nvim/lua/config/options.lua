@@ -8,6 +8,8 @@ vim.o.hlsearch = true
 vim.wo.number = true
 vim.wo.relativenumber = true
 
+vim.o.modeline = false
+
 -- Enable mouse mode
 vim.o.mouse = 'a'
 
@@ -38,8 +40,8 @@ vim.o.completeopt = 'menuone,noselect'
 vim.o.termguicolors = true
 
 -- Window split direction
-vim.cmd.set('splitbelow')
-vim.cmd.set('splitright')
+vim.cmd.set 'splitbelow'
+vim.cmd.set 'splitright'
 
 -- Turn off inline diagnostic text
-vim.diagnostic.config({ virtual_text = false, float = { border = "rounded" } })
+vim.diagnostic.config { virtual_text = false, float = { border = 'rounded' } }
