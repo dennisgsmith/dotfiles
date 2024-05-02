@@ -112,11 +112,10 @@ wezterm.plugin.require('https://github.com/nekowinston/wezterm-bar').apply_to_co
   max_width = 32,
   dividers = false, -- or "slant_left", "arrows", "rounded", false
   indicator = {
-    clock = {
-      enabled = true,
-    },
     leader = {
-      enabled = false,
+      enabled = true,
+      off = '',
+      on = '',
     },
     mode = {
       enabled = true,
