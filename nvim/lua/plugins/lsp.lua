@@ -52,7 +52,7 @@ local nvim_lspconfig = {
           return
         end
 
-        if client.name == 'gopls' then
+        if client.name == 'gopls' or client.name == 'tsserver' then
           return
         end
 
