@@ -1,6 +1,4 @@
-local lbft = {
-  python = { 'pylint' },
-}
+local lbft = {}
 
 local eslint_fts = {
   'javascript',

@@ -75,6 +75,8 @@ local M = {
           '!**/.direnv/*',
           '--glob',
           '!**/build/*',
+          '--glob',
+          '!**/dist/*',
         },
         mappings = {
           i = {
