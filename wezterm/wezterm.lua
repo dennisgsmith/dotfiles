@@ -114,8 +114,8 @@ wezterm.plugin.require('https://github.com/nekowinston/wezterm-bar').apply_to_co
   indicator = {
     leader = {
       enabled = true,
-      off = '',
-      on = '',
+      off = '-',
+      on = '-',
     },
     mode = {
       enabled = true,
@@ -141,11 +141,11 @@ wezterm.plugin.require('https://github.com/nekowinston/wezterm-bar').apply_to_co
 })
 
 for i = 1, 8 do
-  table.insert({
+  table.insert(c.keys, {
     key = tostring(i),
-    mods = 'CTRL | ALT',
+    mods = 'SUPER | OPT',
     action = act.MoveTab(i - 1),
-  }, c.keys)
+  })
 end
 
 return c
