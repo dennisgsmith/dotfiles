@@ -49,9 +49,8 @@ w.on('user-var-changed', function(window, pane, name, value)
 end)
 
 local c = {
-  -- Fonts
-  font = w.font_with_fallback { 'JetBrains Mono', 'termicons' },
-  font_size = 13.0,
+  font = w.font_with_fallback { 'Iosevka', 'termicons' },
+  font_size = 18.0,
 
   keys = {
     {
