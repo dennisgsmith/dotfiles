@@ -10,6 +10,7 @@ local nvim_lspconfig = {
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
     'stevearc/conform.nvim',
+    'nvim-treesitter/nvim-treesitter',
   },
   opts = {},
   config = function(_, _)

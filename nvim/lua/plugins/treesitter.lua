@@ -1,4 +1,4 @@
-local M = {
+return {
   'nvim-treesitter/nvim-treesitter',
   event = 'BufReadPost',
   build = ':TSUpdate',
@@ -6,7 +6,7 @@ local M = {
     'nvim-treesitter/nvim-treesitter-textobjects',
   },
   opts = {
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
+    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'cmake', 'vim' },
     auto_install = true,
     highlight = {
       enable = true,
@@ -71,5 +71,3 @@ local M = {
     require('nvim-treesitter.configs').setup(opts)
   end,
 }
-
-return M
