@@ -1,5 +1,5 @@
-local wezterm = require 'wezterm'
-local act = wezterm.action
+local w = require 'wezterm'
+local act = w.action
 
 local LIGHT_COLORSCHEME = 'Catppuccin Latte'
 local DARK_COLORSCHEME = 'Catppuccin Mocha'
@@ -9,8 +9,8 @@ local DARK_BORDER = '#303030'
 -- wezterm.gui is not available to the mux server, so take care to
 -- do something reasonable when this config is evaluated by the mux
 local function get_appearance()
-  if wezterm.gui then
-    return wezterm.gui.get_appearance()
+  if w.gui then
+    return w.gui.get_appearance()
   end
   return 'Dark'
 end
@@ -28,7 +28,7 @@ local a = get_appearance()
 local border_color = scheme_for_appearance(a, LIGHT_BORDER, DARK_BORDER)
 
 -- folke/zen-mode.nvim integration
-wezterm.on('user-var-changed', function(window, pane, name, value)
+w.on('user-var-changed', function(window, pane, name, value)
   local overrides = window:get_config_overrides() or {}
   if name == 'ZEN_MODE' then
     local incremental = value:find '+'
@@ -49,9 +49,8 @@ wezterm.on('user-var-changed', function(window, pane, name, value)
 end)
 
 local c = {
-  -- Fonts
-  font = wezterm.font_with_fallback { 'JetBrains Mono', 'termicons' },
-  font_size = 13.0,
+  font = w.font_with_fallback { 'Iosevka', 'termicons' },
+  font_size = 18.0,
 
   keys = {
     {
@@ -84,6 +83,26 @@ local c = {
       mods = 'SUPER',
       action = act.ActivatePaneDirection 'Right',
     },
+    {
+      key = '-',
+      mods = 'SUPER',
+      action = act.AdjustPaneSize { 'Left', 5 },
+    },
+    {
+      key = '=',
+      mods = 'SUPER',
+      action = act.AdjustPaneSize { 'Right', 5 },
+    },
+    {
+      key = '+',
+      mods = 'SUPER',
+      action = act.AdjustPaneSize { 'Up', 5 },
+    },
+    {
+      key = '_',
+      mods = 'SUPER',
+      action = act.AdjustPaneSize { 'Down', 5 },
+    },
   },
 
   -- Colors
@@ -107,7 +126,7 @@ local c = {
   hide_tab_bar_if_only_one_tab = false, -- [false] hide the tab bar when there is only a single tab in the window
 }
 
-wezterm.plugin.require('https://github.com/nekowinston/wezterm-bar').apply_to_config(c, {
+w.plugin.require('https://github.com/nekowinston/wezterm-bar').apply_to_config(c, {
   position = 'bottom',
   max_width = 32,
   dividers = false, -- or "slant_left", "arrows", "rounded", false

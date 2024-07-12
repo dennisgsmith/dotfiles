@@ -7,6 +7,10 @@ local M = {
   },
   opts = {
     lsp_cfg = false,
+    lsp_inlay_hints = {
+      enable = false,
+    },
+    lsp_codelens = false,
   },
   config = function(_, opts)
     require('go').setup(opts)
