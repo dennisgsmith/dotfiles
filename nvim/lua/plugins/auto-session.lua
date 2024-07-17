@@ -1,8 +1,6 @@
 local M = {
   'rmagatti/auto-session',
   dependencies = { 'nvim-telescope/telescope.nvim' },
-  lazy = false,
-  priority = 2500,
   keys = {
     { '<leader>as', '<cmd>Autosession search<cr>', desc = '[A]utosession [S]earch' },
     { '<leader>ad', '<cmd>Autosession delete<cr>', desc = '[A]utosession [D]elete' },
@@ -13,7 +11,7 @@ local M = {
     auto_session_enable_last_session = false,
     auto_session_root_dir = vim.fn.stdpath 'data' .. '/sessions/',
     auto_session_enabled = true,
-    auto_save_enabled = nil,
+    auto_save_enabled = false,
     auto_restore_enabled = nil,
     auto_session_suppress_dirs = nil,
     auto_session_use_git_branch = nil,
@@ -35,6 +33,7 @@ local M = {
     post_restore_cmds = { require('lualine').setup },
   },
   config = function(_, opts)
+    vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
     require('auto-session').setup(opts)
   end,
 }
