@@ -18,6 +18,7 @@ alias lzg=lazygit
 alias history="history 1"
 alias ls=lsd
 alias ssh="TERM=xterm ssh"
+alias dps='docker ps --format="table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}\t{{.Names}}"'
 
 . "$HOME/.asdf/asdf.sh"
 
