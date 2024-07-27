@@ -51,7 +51,7 @@ local M = {
     local fb_actions = require 'telescope._extensions.file_browser.actions'
     return {
       defaults = {
-        file_ignore_patterns = { 'node%_modules/.*', 'go/pkg/mod/*' },
+        file_ignore_patterns = { 'node%_modules/.*', 'go/pkg/mod/*', '.DS_Store' },
         layout_stategy = 'vertical',
         layout_config = { width = 0.95 },
         sorting_strategy = 'ascending',
