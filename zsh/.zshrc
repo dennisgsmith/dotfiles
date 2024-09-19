@@ -1,6 +1,7 @@
 export HOMEBREW_NO_ANALYTICS=1
 
 export EDITOR=nvim
+export VISUAL=nvim
 export PS1="%~ %% "
 
 export PATH="/opt/homebrew/bin:$PATH"
@@ -18,11 +19,16 @@ alias lzg=lazygit
 alias history="history 1"
 alias ls=lsd
 alias ssh="TERM=xterm ssh"
+alias colima="TERM=xterm colima"
 alias dps='docker ps --format="table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}\t{{.Names}}"'
 
 . "$HOME/.asdf/asdf.sh"
 
 eval "$(direnv hook zsh)"
+
+autoload edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
 
 autoload -Uz compinit && compinit
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
