@@ -12,6 +12,7 @@ export PATH="$PATH:$HOME/go/bin"
 export DOCKER_HOST=unix:///$HOME/.colima/docker.sock
 export TERM=wezterm
 export GPG_TTY=$(tty)
+export HISTSIZE=10000
 
 alias nv="nvim"
 alias lzd=lazydocker
