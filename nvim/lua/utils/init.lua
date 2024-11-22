@@ -54,7 +54,7 @@ M.lsp_servers = {
   'pyright',
   'rust_analyzer',
   'taplo',
-  'tsserver',
+  'ts_ls',
   'yamlls',
 }
 
