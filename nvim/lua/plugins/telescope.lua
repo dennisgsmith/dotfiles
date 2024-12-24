@@ -77,6 +77,8 @@ local M = {
           '!**/build/*',
           '--glob',
           '!**/dist/*',
+          '--glob',
+          '!**/.next/*',
         },
         mappings = {
           i = {
@@ -120,7 +122,7 @@ local M = {
           dir_icon = '',
           dir_icon_hl = 'Default',
           display_stat = { date = true, size = true, mode = true },
-          hijack_netrw = true,
+          hijack_netrw = false,
           use_fd = true,
           respect_gitignore = false,
           git_status = true,

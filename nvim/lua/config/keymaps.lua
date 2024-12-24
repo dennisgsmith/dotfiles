@@ -8,8 +8,17 @@ vim.keymap.set('n', '<leader><F5>', vim.cmd.UndotreeToggle)
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-vim.api.nvim_create_user_command('Explore', 'Telescope file_browser path=%:p:h select_buffer=true', {})
-vim.api.nvim_create_user_command('E', 'Telescope file_browser path=%:p:h select_buffer=true', {})
+-- vim.api.nvim_create_user_command('Explore', 'Telescope file_browser path=%:p:h select_buffer=true', {})
+-- vim.api.nvim_create_user_command('E', 'Telescope file_browser path=%:p:h select_buffer=true', {})
+
+local function minifile_open_cwd()
+  local minifiles = require 'mini.files'
+  minifiles.open(vim.api.nvim_buf_get_name(0))
+  minifiles.reveal_cwd()
+end
+
+vim.api.nvim_create_user_command('Explore', minifile_open_cwd, {})
+vim.api.nvim_create_user_command('E', minifile_open_cwd, {})
 
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
 vim.keymap.set('n', '<leader><leader>', '<Cmd>Telescope resume<CR>', { desc = 'Open most recent picker with last selection' })
