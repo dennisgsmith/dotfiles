@@ -33,3 +33,23 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 vim.cmd [[autocmd InsertEnter * :set norelativenumber]]
 vim.cmd [[autocmd InsertLeave * :set relativenumber]]
+
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'MiniFilesBufferCreate',
+  callback = function(args)
+    local buf_id = args.data.buf_id
+
+    vim.keymap.set('n', '<CR>', function()
+      local mini_files = require 'mini.files'
+      local entry = mini_files.get_fs_entry()
+      if entry ~= nil then
+        if entry.fs_type == 'directory' then
+          mini_files.go_in()
+        else
+          mini_files.go_in()
+          mini_files.close()
+        end
+      end
+    end, { buffer = buf_id, noremap = true, silent = true })
+  end,
+})

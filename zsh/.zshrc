@@ -9,10 +9,10 @@ export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/go/bin"
 
-export DOCKER_HOST=unix:///$HOME/.colima/docker.sock
 export TERM=wezterm
 export GPG_TTY=$(tty)
 export HISTSIZE=10000
+export OSXSC_LIB=/usr/lib/ssh-keychain.dylib
 
 alias nv="nvim"
 alias lzd=lazydocker

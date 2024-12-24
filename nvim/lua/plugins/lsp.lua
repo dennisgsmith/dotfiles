@@ -64,7 +64,7 @@ local nvim_lspconfig = {
               return
             end
 
-            require('conform').format { bufnr = args.buf }
+            require('conform').format { bufnr = args.buf, async = true, lsp_fallback = true }
           end,
         })
       end,
@@ -143,6 +143,11 @@ local nvim_lspconfig = {
         lspconfig[server_name].setup {
           on_attach = on_attach,
           capabilities = capabilities,
+        }
+      end,
+      ['ts_ls'] = function()
+        lspconfig.ts_ls.setup {
+          root_dir = lspconfig.util.root_pattern '.git',
         }
       end,
       ['gopls'] = function()
