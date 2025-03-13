@@ -53,12 +53,10 @@ return {
           select = false,
         },
         ['<Tab>'] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_next_item()
+          if cmp.visible() and has_words_before() then
+            cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
           elseif luasnip.expand_or_locally_jumpable() then
             luasnip.expand_or_jump()
-          elseif has_words_before() then
-            cmp.complete()
           else
             fallback()
           end
@@ -74,9 +72,10 @@ return {
         end, { 'i', 's' }),
       },
       sources = {
-        { name = 'nvim_lsp' },
-        { name = 'path' },
-        { name = 'buffer' },
+        { name = 'copilot', group_index = 2 },
+        { name = 'nvim_lsp', group_index = 2 },
+        { name = 'path', group_index = 2 },
+        { name = 'buffer', group_index = 2 },
       },
       window = {
         completion = cmp.config.window.bordered(),
@@ -85,6 +84,21 @@ return {
       experimental = {
         ghost_text = {
           hl_group = 'LspCodeLens',
+        },
+      },
+      sorting = {
+        priority_weight = 2,
+        comparators = {
+          cmp.config.compare.offset,
+          cmp.config.compare.exact,
+          cmp.config.compare.score,
+          cmp.config.compare.recently_used,
+          cmp.config.compare.locality,
+          cmp.config.compare.kind,
+          cmp.config.compare.sort_text,
+          cmp.config.compare.length,
+          cmp.config.compare.order,
+          require('copilot_cmp.comparators').prioritize,
         },
       },
     }

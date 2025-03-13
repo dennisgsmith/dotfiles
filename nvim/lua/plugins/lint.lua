@@ -15,7 +15,7 @@ local eslint_fts = {
 }
 
 for _, v in ipairs(eslint_fts) do
-  lbft[v] = { 'eslint_d' }
+  lbft[v] = { 'eslint_d', version = '13.1.2' }
 end
 
 -- https://github.com/LazyVim/LazyVim/blob/f086bcde253c29be9a2b9c90b413a516f5d5a3b2/lua/lazyvim/plugins/linting.lua#L4
